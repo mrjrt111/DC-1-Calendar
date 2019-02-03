@@ -1,6 +1,7 @@
 package designchallenge1;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
 //Abstract Class used to handle parser classes that will be used to read dates
@@ -10,6 +11,6 @@ public abstract class ParserAbstract {
 
     abstract void loadFile () throws  Exception; //used to load file, filename is the path
 
-    abstract void readFile ();//used to read file
+    abstract void readFile () throws IOException;//used to read file
 
 }

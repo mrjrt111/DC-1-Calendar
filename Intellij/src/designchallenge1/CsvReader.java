@@ -1,31 +1,59 @@
 package designchallenge1;
 import java.io.*;
+import java.util.ArrayList;
 
-public class CsvReader extends ParserAbstract {
 
-    private String filename;
-    public CsvReader(String filename) throws Exception {
+//CsvReader is used to parse csv files
+public class CsvReader extends ParserAbstract
+{
+
+    private ArrayList<String> content; //contains the content from the
+    private String filename; //filename to be used
+    private FileReader fReader; //used to read the file
+    private BufferedReader bReader;// used to read the content of the file
+    private int size; //size of entries per line
+
+    public CsvReader(String filename) throws Exception
+    {
+        content  = new ArrayList<>();
         this.filename = filename;
         loadFile();
         readFile();
-
     }
 
     @Override
-    void loadFile() throws Exception {
-        FileReader fr = new FileReader(this.filename);
-        BufferedReader br = new BufferedReader(fr);
+    void loadFile() throws Exception
+    {
+        fReader = new FileReader(this.filename);
+        bReader = new BufferedReader(fReader);
+    }
 
-        while((br.read())!=-1){
-            System.out.println(br.readLine());
+    @Override
+    void readFile() throws IOException
+    {
+        int i;
+
+        String [] fEntry = bReader.readLine().split(", "); //gets the first entry and splits it
+        size = fEntry.length; //gets the number of entry in the first line
+
+        for (i = 0; i<size; i++) //loop adds the first entry's content to the arraylist
+            content.add(fEntry[i]);
+
+        while((bReader.read())!=-1) //loop that adds the remaining entries
+        {
+            fEntry = bReader.readLine().split(", ");
+            for (i = 0; i<size; i++)
+                content.add(fEntry[i]);
         }
-        br.close();
-        fr.close();
+        bReader.close();
+        fReader.close();
+
+       /* for (String word: content) //used to test the arraylist's content
+            System.out.println(word); */
 
     }
-
-    @Override
-    void readFile() {
-
+    public ArrayList<String> getContent()
+    {
+        return content;
     }
 }
