@@ -13,4 +13,9 @@ public abstract class ParserAbstract {
 
     abstract void readFile () throws IOException;//used to read file
 
+    public ArrayList<String> getContent()
+    {
+        return content;
+    }
+
 }

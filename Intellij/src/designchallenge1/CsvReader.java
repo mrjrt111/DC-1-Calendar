@@ -7,7 +7,6 @@ import java.util.ArrayList;
 public class CsvReader extends ParserAbstract
 {
 
-    private ArrayList<String> content; //contains the content from the
     private String filename; //filename to be used
     private FileReader fReader; //used to read the file
     private BufferedReader bReader;// used to read the content of the file
@@ -15,7 +14,6 @@ public class CsvReader extends ParserAbstract
 
     public CsvReader(String filename) throws Exception
     {
-        content  = new ArrayList<>();
         this.filename = filename;
         loadFile();
         readFile();
@@ -24,6 +22,7 @@ public class CsvReader extends ParserAbstract
     @Override
     void loadFile() throws Exception
     {
+        super.content = new ArrayList<>();
         fReader = new FileReader(this.filename);
         bReader = new BufferedReader(fReader);
     }
@@ -48,12 +47,9 @@ public class CsvReader extends ParserAbstract
         bReader.close();
         fReader.close();
 
-       /* for (String word: content) //used to test the arraylist's content
+      /* for (String word: content) //used to test the arraylist's content
             System.out.println(word); */
 
     }
-    public ArrayList<String> getContent()
-    {
-        return content;
-    }
+
 }
