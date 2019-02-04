@@ -17,8 +17,9 @@ import java.awt.event.*;
 import java.util.*;
 
 public class CalendarProgram{
-	
-        /**** Day Components ****/
+
+
+	/**** Day Components ****/
 	public int yearBound, monthBound, dayBound, yearToday, monthToday;
 
         /**** Swing Components ****/
@@ -33,6 +34,29 @@ public class CalendarProgram{
         /**** Calendar Table Components ***/
 	public JTable calendarTable;
         public DefaultTableModel modelCalendarTable;
+
+       /*CCCC*/
+	   public JColorChooser colorChooser;
+	   public JButton button;
+	   public boolean toggled = false;
+
+	protected void toggleColorChooser() {
+		if (toggled) {
+			calendarPanel.remove(colorChooser);
+		} else {
+			colorChooser.setBounds(button.getX(), button.getY() + 20, 600, 300);
+			colorChooser.setVisible(true);
+			calendarPanel.add(colorChooser);
+		}
+		toggled = !toggled;
+		calendarPanel.validate();
+		calendarPanel.repaint();
+	}
+
+	protected void colorChanged() {
+		button.setBackground(colorChooser.getSelectionModel().getSelectedColor());
+	}
+	   /*CCCC*/
 
         /** Method used to change month and year**/
         public void refreshCalendar(int month, int year)
@@ -111,6 +135,27 @@ public class CalendarProgram{
 		calendarPanel = new JPanel(null);
 
 		calendarPanel.setBorder(BorderFactory.createTitledBorder("Calendar"));
+
+		/*CCCC*/
+		button = new JButton("Choose color");
+		button.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				toggleColorChooser();
+			}
+		});
+		button.setBounds(10, 11, 150, 23);
+
+		colorChooser = new JColorChooser(Color.BLACK);
+		colorChooser.setBorder(null);
+		colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+				colorChanged(); // change background color of "button"
+			}
+		});
+		/*CCCC*/
+
+
 		
 		btnPrev.addActionListener(new btnPrev_Action());
 		btnNext.addActionListener(new btnNext_Action());
@@ -123,6 +168,8 @@ public class CalendarProgram{
 		calendarPanel.add(btnPrev);
 		calendarPanel.add(btnNext);
 		calendarPanel.add(scrollCalendarTable);
+		/*CCCC*/
+		calendarPanel.add(button);
 		
                 calendarPanel.setBounds(0, 0, 640, 670);
                 monthLabel.setBounds(320-monthLabel.getPreferredSize().width/2, 50, 200, 50);
