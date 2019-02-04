@@ -12,7 +12,7 @@ public class MDYEventColorInterpreter implements DataInterpreterAdapter {
     }
 
     @Override
-    public int [][] storeDate() //Stores Date in a 2D Array: [n][0] Month, [n][1] Day, [n][2] Year
+    public int [][] getDates() //Stores Date in a 2D Array: [n][0] Month, [n][1] Day, [n][2] Year
     {
         int [][] dates = new int [content.size()/3][3];
         String [] temp;
@@ -33,7 +33,7 @@ public class MDYEventColorInterpreter implements DataInterpreterAdapter {
     }
 
     @Override
-    public String[] storeEvent()
+    public String[] getEvents()
     {
         int i = 0;
         String [] events = new String[content.size()/3];
@@ -45,7 +45,7 @@ public class MDYEventColorInterpreter implements DataInterpreterAdapter {
     }
 
     @Override
-    public String[] storeColor() {
+    public String[] getColors() {
         int i = 0;
         String [] colors = new String[content.size()/3];
         for (int j = 2; j<content.size(); j+=3) {

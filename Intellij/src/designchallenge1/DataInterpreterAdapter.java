@@ -3,7 +3,7 @@ package designchallenge1;
 //Adapter Pattern for Interpreter with different date format,positioning
 public interface DataInterpreterAdapter
 {
-    public int [][]storeDate();
-    public String [] storeEvent();
-    public String [] storeColor();
+    public int [][]getDates();
+    public String [] getEvents();
+    public String [] getColors();
 }

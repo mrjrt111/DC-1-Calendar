@@ -10,17 +10,17 @@ public class tester //Used to test classes not needed in the program
             */
         MDYEventColorInterpreter interpreter = new MDYEventColorInterpreter(reader.getContent());
 
-        /*interpreter.storeDate(); //used to test date content
-        for (int i = 0; i<interpreter.storeDate().length; i++)
+      /*  interpreter.getDates(); //used to test date content
+        for (int i = 0; i<interpreter.getDates().length; i++)
             for (int j =  0; j<3; j++)
-                System.out.println("Array"+i+" "+j +" " + interpreter.storeDate()[i][j]);
+                System.out.println("Array"+i+" "+j +" " + interpreter.getDates()[i][j]);
             */
 
-     /*for (String event:  interpreter.storeEvent()) //used to test event content
+    /* for (String event:  interpreter.getEvents()) //used to test event content
            System.out.println(event);
            */
 
-      /*  for (String color:  interpreter.storeColor())
+      /*  for (String color:  interpreter.getColors())
             System.out.println(color); */
     }
 }
