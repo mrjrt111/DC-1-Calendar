@@ -4,7 +4,7 @@ import java.util.ArrayList;
 //Handles content reading in the format: Month/Day/Year, Event, Color
 public class MDYEventColorInterpreter implements DataInterpreterAdapter {
 
-    ArrayList<String> content;
+    private ArrayList<String> content;
 
     public MDYEventColorInterpreter(ArrayList<String> content)
     {
