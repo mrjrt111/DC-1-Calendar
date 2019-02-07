@@ -11,6 +11,9 @@ public class MDYEventColorInterpreter implements DataInterpreterAdapter {
         this.content = content;
     }
 
+
+
+/*
     @Override
     public int [][] getDates() //Stores Date in a 2D Array: [n][0] Month, [n][1] Day, [n][2] Year
     {
@@ -53,5 +56,24 @@ public class MDYEventColorInterpreter implements DataInterpreterAdapter {
             i++;
         }
         return colors;
+    }
+*/
+    @Override
+    public ArrayList<CalendarEvent> dataToCalendarEvents()
+    {
+        String [] temp;
+
+        ArrayList <CalendarEvent> events = new ArrayList<>();
+        for (int i = 0; i<content.size(); i+=3)
+        {
+
+            temp = content.get(i).split("/");
+
+            events.add(new CalendarEvent(Integer.valueOf(temp[0]),Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),
+                    content.get(i+1),content.get(i+2)));
+
+        }
+
+        return events;
     }
 }

@@ -8,19 +8,17 @@ public class tester //Used to test classes not needed in the program
        /* for (String word: reader.getContent()) //used to test the arraylist's content
             System.out.println(word);
             */
-        MDYEventColorInterpreter interpreter = new MDYEventColorInterpreter(reader.getContent());
+       MDYEventColorInterpreter interpreter = new MDYEventColorInterpreter(reader.getContent());
 
-      /*  interpreter.getDates(); //used to test date content
-        for (int i = 0; i<interpreter.getDates().length; i++)
-            for (int j =  0; j<3; j++)
-                System.out.println("Array"+i+" "+j +" " + interpreter.getDates()[i][j]);
-            */
-
-    /* for (String event:  interpreter.getEvents()) //used to test event content
-           System.out.println(event);
-           */
-
-      /*  for (String color:  interpreter.getColors())
-            System.out.println(color); */
+       /* for (CalendarEvent e:interpreter.dataToCalendarEvents()) //used to test event content
+        {
+            System.out.println("Month " + e.getMonth());
+            System.out.println("Day " + e.getDay());
+            System.out.println("Year " + e.getYear());
+            System.out.println("Event " + e.getHoliday());
+            System.out.println("Color " + e.getColor());
+            System.out.println();
+        }
+        */
     }
 }
