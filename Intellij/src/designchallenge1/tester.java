@@ -10,7 +10,7 @@ public class tester //Used to test classes not needed in the program
             */
        MDYEventColorInterpreter interpreter = new MDYEventColorInterpreter(reader.getContent());
 
-       /* for (CalendarEvent e:interpreter.dataToCalendarEvents()) //used to test event content
+      /*  for (CalendarEvent e:interpreter.dataToCalendarEvents()) //used to test event content
         {
             System.out.println("Month " + e.getMonth());
             System.out.println("Day " + e.getDay());
@@ -19,6 +19,9 @@ public class tester //Used to test classes not needed in the program
             System.out.println("Color " + e.getColor());
             System.out.println();
         }
-        */
+*/
+
+       MDYEventColorCsvWriter writer = new MDYEventColorCsvWriter("test.csv", interpreter.dataToCalendarEvents());
+       writer.saveData();
     }
 }
