@@ -44,6 +44,7 @@ public class CalendarProgram{
 		if (toggled) {
 			calendarPanel.remove(colorChooser);
 		} else {
+			System.out.println("CC");
 			colorChooser.setBounds(button.getX(), button.getY() + 20, 600, 300);
 			colorChooser.setVisible(true);
 			calendarPanel.add(colorChooser);
@@ -141,6 +142,7 @@ public class CalendarProgram{
 		button.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				System.out.println("IN");
 				toggleColorChooser();
 			}
 		});
@@ -148,11 +150,11 @@ public class CalendarProgram{
 
 		colorChooser = new JColorChooser(Color.BLACK);
 		colorChooser.setBorder(null);
-		colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
+		/*colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				colorChanged(); // change background color of "button"
 			}
-		});
+		});*/
 		/*CCCC*/
 
 
