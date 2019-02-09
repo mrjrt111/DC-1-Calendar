@@ -33,8 +33,8 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
             bufferedWriter = new BufferedWriter(fileWriter);
             for (int i = 0; i<content.size(); i++)
             {
-                bufferedWriter.write(content.get(i).getMonth() + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+","+
-                        content.get(i).getHoliday() + ","+content.get(i).getColor()+ "\n");
+                bufferedWriter.write(content.get(i).getMonth() + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+", "+
+                        content.get(i).getHoliday() + ", "+content.get(i).getColor()+ "\n");
             }
         }
         catch (IOException ioe){ioe.printStackTrace();}

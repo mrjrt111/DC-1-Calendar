@@ -52,7 +52,6 @@ public class CsvReader extends ParserAbstract
 
       /* for (String word: content) //used to test the arraylist's content
             System.out.println(word); */
-
     }
 
     public int getSize() {
