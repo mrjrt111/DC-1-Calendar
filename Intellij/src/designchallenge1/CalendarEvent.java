@@ -1,14 +1,16 @@
 package designchallenge1;
 
+import java.awt.*;
+
 public class CalendarEvent
 {
     private int month;
     private int day;
     private int year;
     private String holiday;
-    private String color;
+    private Color color;
 
-    public CalendarEvent(int month, int day, int year, String holiday, String color)
+    public CalendarEvent(int month, int day, int year, String holiday, Color color)
     {
         this.month = month;
         this.day = day;
@@ -49,11 +51,11 @@ public class CalendarEvent
         this.holiday = holiday;
     }
 
-    public String getColor() {
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(String color) {
+    public void setColor(Color color) {
         this.color = color;
     }
 

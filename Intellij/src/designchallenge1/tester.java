@@ -1,5 +1,10 @@
 package designchallenge1;
 
+import facebook.FBView;
+
+import java.awt.*;
+import java.util.ArrayList;
+
 public class tester //Used to test classes not needed in the program
 {
     public static void main (String [] args) throws Exception {
@@ -26,7 +31,7 @@ public class tester //Used to test classes not needed in the program
        writer.saveData();
        */
 
-      psvReader psvreader = new psvReader("C:\\Users\\jarrett\\Documents\\DLSU\\AY 2018 - 2019\\Term 2\\" +
+      /*psvReader psvreader = new psvReader("C:\\Users\\jarrett\\Documents\\DLSU\\AY 2018 - 2019\\Term 2\\" +
               "SWDESPA\\MP\\DC 1\\Git Version\\DC-1-Calendar\\Intellij\\Sample Files\\DLSU Unicalendar.psv");
 
       EventMDYColorInterpreter interpreter = new EventMDYColorInterpreter(psvreader.getContent());
@@ -40,7 +45,11 @@ public class tester //Used to test classes not needed in the program
             System.out.println("Color " + e.getColor());
             System.out.println();
         }
-
+*/
+        ArrayList<CalendarEvent> e = new ArrayList<>();
+        e.add(new CalendarEvent(1, 1, 2001, "poop", new Color(0)));
+      SmsController controller = new SmsController();
+      controller.update(e);
 
     }
 }

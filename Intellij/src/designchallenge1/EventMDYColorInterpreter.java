@@ -1,5 +1,6 @@
 package designchallenge1;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class EventMDYColorInterpreter implements DataInterpreterAdapter {
@@ -19,7 +20,7 @@ public class EventMDYColorInterpreter implements DataInterpreterAdapter {
             temp = content.get(i+1).split("/");
 
             events.add(new CalendarEvent(Integer.valueOf(temp[0]),Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),
-                    content.get(i),content.get(i+2)));
+                    content.get(i),new Color(Integer.valueOf(content.get(i+2)))));
         }
         return events;
     }
