@@ -1,4 +1,5 @@
 package designchallenge1;
+
 import java.io.*;
 
 public class CsvReader extends ParserAbstract {
