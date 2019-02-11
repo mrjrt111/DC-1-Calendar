@@ -17,76 +17,54 @@ import java.awt.event.*;
 import java.util.*;
 
 public class CalendarProgram{
-
+	/*CHANGE*/
+	PopupAdapter Popup;
+	/*CHANGE*/
 
 	/**** Day Components ****/
 	public int yearBound, monthBound, dayBound, yearToday, monthToday;
 
-        /**** Swing Components ****/
-        public JLabel monthLabel, yearLabel;
+	/**** Swing Components ****/
+	public JLabel monthLabel, yearLabel;
 	public JButton btnPrev, btnNext;
-        public JComboBox cmbYear;
+	public JComboBox cmbYear;
 	public JFrame frmMain;
 	public Container pane;
 	public JScrollPane scrollCalendarTable;
 	public JPanel calendarPanel;
-        
-        /**** Calendar Table Components ***/
+
+	/**** Calendar Table Components ***/
 	public JTable calendarTable;
-        public DefaultTableModel modelCalendarTable;
+	public DefaultTableModel modelCalendarTable;
 
-       /*CCCC*/
-	   public JColorChooser colorChooser;
-	   public JButton button;
-	   public boolean toggled = false;
-
-	protected void toggleColorChooser() {
-		if (toggled) {
-			calendarPanel.remove(colorChooser);
-		} else {
-			System.out.println("CC");
-			colorChooser.setBounds(button.getX(), button.getY() + 20, 600, 300);
-			colorChooser.setVisible(true);
-			calendarPanel.add(colorChooser);
-		}
-		toggled = !toggled;
-		calendarPanel.validate();
-		calendarPanel.repaint();
-	}
-
-	protected void colorChanged() {
-		button.setBackground(colorChooser.getSelectionModel().getSelectedColor());
-	}
-	   /*CCCC*/
-
-        /** Method used to change month and year**/
-        public void refreshCalendar(int month, int year)
-        {
+	/** Method used to change month and year**/
+	public void refreshCalendar(int month, int year)
+	{
 		String[] months =  {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 		int nod, som, i, j;
-			
+
 		btnPrev.setEnabled(true);
 		btnNext.setEnabled(true);
 		if (month == 0 && year <= yearBound-10)
-                    btnPrev.setEnabled(false);
+			btnPrev.setEnabled(false);
 		if (month == 11 && year >= yearBound+100)
-                    btnNext.setEnabled(false);
-                
+			btnNext.setEnabled(false);
+
 		monthLabel.setText(months[month]);
 		monthLabel.setBounds(320-monthLabel.getPreferredSize().width/2, 50, 360, 50);
-                
+
 		cmbYear.setSelectedItem(""+year);
-		
+
 		for (i = 0; i < 6; i++)
 			for (j = 0; j < 7; j++)
 				modelCalendarTable.setValueAt(null, i, j);
-		
+
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		som = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		
+
 		for (i = 1; i <= nod; i++)
-                {
+		{
 			int row = new Integer((i+som-2)/7);
 			int column  =  (i+som-2)%7;
 			modelCalendarTable.setValueAt(i, row, column);
@@ -95,16 +73,20 @@ public class CalendarProgram{
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		System.out.println("Refreshed\nMonth" + month + "\nYear"+ year);
 	}
-        
+
 	public CalendarProgram()
-        {
+	{
 		try {
-                    UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-                }
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}
 		catch (Exception e) {}
-                
+
+		/*CHANGE*/
+		Popup = new Popup();
+		/*CHANGE*/
+
 		frmMain = new JFrame ("Calendar Application");
-                frmMain.setSize(660, 750);
+		frmMain.setSize(660, 750);
 		pane = frmMain.getContentPane();
 		pane.setLayout(null);
 		frmMain.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -115,54 +97,36 @@ public class CalendarProgram{
 		btnPrev = new JButton ("<<");
 		btnNext = new JButton (">>");
 		modelCalendarTable = new DefaultTableModel()
-                {
-                    public boolean isCellEditable(int rowIndex, int mColIndex)
-                    {
-                        return true;
-                    }
-                };
-                
+		{
+			public boolean isCellEditable(int rowIndex, int mColIndex)
+			{
+				return true;
+			}
+		};
+
 		calendarTable = new JTable(modelCalendarTable);
-                calendarTable.addMouseListener(new MouseAdapter()   
-                {  
-                    public void mouseClicked(MouseEvent evt)  
-                    {  
-                        int col = calendarTable.getSelectedColumn();  
-                        int row = calendarTable.getSelectedRow();  
-                    }
-                });
-                
+		calendarTable.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent evt)
+			{
+				int col = calendarTable.getSelectedColumn();
+				int row = calendarTable.getSelectedRow();
+
+				/*CHANGE*/
+				Popup.open();
+				/*CHANGE*/
+			}
+		});
+
 		scrollCalendarTable = new JScrollPane(calendarTable);
 		calendarPanel = new JPanel(null);
 
 		calendarPanel.setBorder(BorderFactory.createTitledBorder("Calendar"));
 
-		/*CCCC*/
-		button = new JButton("Choose color");
-		button.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.out.println("IN");
-				toggleColorChooser();
-			}
-		});
-		button.setBounds(10, 11, 150, 23);
-
-		colorChooser = new JColorChooser(Color.BLACK);
-		colorChooser.setBorder(null);
-		/*colorChooser.getSelectionModel().addChangeListener(new ChangeListener() {
-			public void stateChanged(ChangeEvent e) {
-				colorChanged(); // change background color of "button"
-			}
-		});*/
-		/*CCCC*/
-
-
-		
 		btnPrev.addActionListener(new btnPrev_Action());
 		btnNext.addActionListener(new btnNext_Action());
 		cmbYear.addActionListener(new cmbYear_Action());
-		
+
 		pane.add(calendarPanel);
 		calendarPanel.add(monthLabel);
 		calendarPanel.add(yearLabel);
@@ -170,32 +134,30 @@ public class CalendarProgram{
 		calendarPanel.add(btnPrev);
 		calendarPanel.add(btnNext);
 		calendarPanel.add(scrollCalendarTable);
-		/*CCCC*/
-		calendarPanel.add(button);
-		
-                calendarPanel.setBounds(0, 0, 640, 670);
-                monthLabel.setBounds(320-monthLabel.getPreferredSize().width/2, 50, 200, 50);
+
+		calendarPanel.setBounds(0, 0, 640, 670);
+		monthLabel.setBounds(320-monthLabel.getPreferredSize().width/2, 50, 200, 50);
 		yearLabel.setBounds(20, 610, 160, 40);
 		cmbYear.setBounds(460, 610, 160, 40);
 		btnPrev.setBounds(20, 50, 100, 50);
 		btnNext.setBounds(520, 50, 100, 50);
 		scrollCalendarTable.setBounds(20, 100, 600, 500);
-                
+
 		frmMain.setResizable(false);
 		frmMain.setVisible(true);
-		
+
 		GregorianCalendar cal = new GregorianCalendar();
 		dayBound = cal.get(GregorianCalendar.DAY_OF_MONTH);
 		monthBound = cal.get(GregorianCalendar.MONTH);
 		yearBound = cal.get(GregorianCalendar.YEAR);
-		monthToday = monthBound; 
+		monthToday = monthBound;
 		yearToday = yearBound;
-		
+
 		String[] headers = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"}; //All headers
 		for (int i=0; i<7; i++){
 			modelCalendarTable.addColumn(headers[i]);
 		}
-		
+
 		calendarTable.getParent().setBackground(calendarTable.getBackground()); //Set background
 
 		calendarTable.getTableHeader().setResizingAllowed(false);
@@ -208,54 +170,54 @@ public class CalendarProgram{
 		calendarTable.setRowHeight(76);
 		modelCalendarTable.setColumnCount(7);
 		modelCalendarTable.setRowCount(6);
-		
+
 		for (int i = yearBound-100; i <= yearBound+100; i++)
-                {
+		{
 			cmbYear.addItem(String.valueOf(i));
 		}
-		
+
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
 	}
-	
+
 
 	class btnPrev_Action implements ActionListener
-        {
+	{
 		public void actionPerformed (ActionEvent e)
-                {
+		{
 			if (monthToday == 0)
-                        {
+			{
 				monthToday = 11;
 				yearToday -= 1;
 			}
 			else
-                        {
+			{
 				monthToday -= 1;
 			}
 			refreshCalendar(monthToday, yearToday);
 		}
 	}
 	class btnNext_Action implements ActionListener
-        {
+	{
 		public void actionPerformed (ActionEvent e)
-                {
+		{
 			if (monthToday == 11)
 			{
 				monthToday = 0;
 				yearToday += 1;
 			}
 			else
-                        {
+			{
 				monthToday += 1;
 			}
 			refreshCalendar(monthToday, yearToday);
 		}
 	}
 	class cmbYear_Action implements ActionListener
-        {
+	{
 		public void actionPerformed (ActionEvent e)
-                {
+		{
 			if (cmbYear.getSelectedItem() != null)
-                        {
+			{
 				String b = cmbYear.getSelectedItem().toString();
 				yearToday = Integer.parseInt(b);
 				refreshCalendar(monthToday, yearToday);
