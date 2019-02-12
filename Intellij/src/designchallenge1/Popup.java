@@ -19,10 +19,7 @@ public class Popup implements PopupAdapter{
     public JFrame frame;
     public JPanel colorPanel;
 
-    public int day = 0,
-               month = 0,
-               year = 0;
-    //public String strMonth;
+    public int day, month, year;
     public Color color;
     public int rgb;
 
@@ -31,12 +28,12 @@ public class Popup implements PopupAdapter{
     ArrayList<CalendarEvent> cEvent = new ArrayList<>();
     ParserAbstract CSVReader;
     SmsController SMS;
+    FbController FB;
 
     public Popup () {
         this.day = 0;
         this.month = 0;
         this.year = 0;
-        //this.strMonth = "";
 
         event = new JTextField("Enter event", JLabel.BOTTOM);
         event.setOpaque(true);
@@ -50,8 +47,10 @@ public class Popup implements PopupAdapter{
             public void actionPerformed(ActionEvent e) {
                 System.out.println(event.getText());
                 frame.setVisible(false);
+                System.out.println("BEFORE: " + day + '/' + month + '/' + year);
                 //cEvent = new CalendarEvent(month, day, year, event.getText(), color);
                 cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
+                System.out.println (cEvent.get(0).getDay());
 
                 try {
                     CSVReader = new CsvReader("Events Supreme.csv");
@@ -61,10 +60,14 @@ public class Popup implements PopupAdapter{
                 CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
                 try {
                     CSVWriter.saveData();
+                    System.out.println (cEvent.get(0).getDay());
                 } catch (IOException e1) { e1.printStackTrace(); }
 
                 SMS = new SmsController();
+                FB = new FbController();
+
                 SMS.update(cEvent);
+                FB.update(cEvent);
 
                 System.out.println("Event: " + day + '/' + month + '/' + year);
             }

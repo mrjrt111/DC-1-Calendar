@@ -8,9 +8,9 @@ public class FbController implements ObserverInterface
 {
     FBView view;
 
-
     @Override
-    public void update(ArrayList<CalendarEvent> event) {
+    public void update(ArrayList<CalendarEvent> event)
+    {
         view = new FBView();
         for (CalendarEvent e:event)
         view.showNewEvent(e.getHoliday(), e.getMonth(), e.getDay(), e.getYear(), e.getColor());
