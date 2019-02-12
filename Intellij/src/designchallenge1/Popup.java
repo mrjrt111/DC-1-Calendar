@@ -109,6 +109,9 @@ public class Popup implements PopupAdapter{
         colorPanel.setVisible(true);
     }
 
+    public int getDay (){ return day; }
+    public int getMonth(){ return month; }
+
     public void setDay (int day) {
         this.day = day;
     }

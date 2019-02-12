@@ -17,7 +17,7 @@ import java.util.*;
 
 public class CalendarProgram{
 	/*CHANGE*/
-	PopupAdapter Popup;
+	PopupAdapter Popup, Popup2;
 	/*CHANGE*/
 
 	/**** Day Components ****/
@@ -91,6 +91,7 @@ public class CalendarProgram{
 
 		/*CHANGE*/
 		Popup = new Popup();
+		Popup2 = new Popup2();
 		/*CHANGE*/
 
 		frmMain = new JFrame ("Calendar Application");
@@ -121,10 +122,30 @@ public class CalendarProgram{
 				int row = calendarTable.getSelectedRow();
 
 				/*CHANGE*/
-				Popup.open();
-				((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
+				//Popup.open();
+				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
+				String[] days = str.split(" ");
+				String day = days[0];
+				//((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
+				((Popup)Popup).setDay(Integer.valueOf(day));
 				((Popup)Popup).setMonth(monthLabel.getText());
-				((Popup)Popup).setYear(yearBound);
+				//((Popup)Popup).setYear(yearBound);
+
+				Popup2.open();
+				EventToCalendar sort = new EventToCalendar(events);
+				events = sort.eventsInMonth(((Popup)Popup).getMonth(), yearBound);
+				ArrayList<CalendarEvent> same = new ArrayList<>();
+
+				for (int i = 0; i<events.size(); i++)
+					if (((Popup)Popup).getDay() == events.get(i).getDay()) {
+						System.out.println ("event: " + events.get(i).getDay());
+						same.add(events.get(i));
+					}
+
+				((Popup2)Popup2).setEvents(same);
+				//System.out.println (same.get(0).getHoliday());
+
+
 				/*System.out.println ((int)modelCalendarTable.getValueAt(row, col));
 				System.out.println (monthLabel.getText());
 				System.out.println (yearBound);*/
@@ -193,8 +214,7 @@ public class CalendarProgram{
 
 
 		try {
-			CsvReader csvReader = new CsvReader("C:\\Users\\jarrett\\Documents\\DLSU\\AY 2018 - 2019\\Term 2\\SWDESPA" +
-					"\\MP\\DC 1\\Git Version\\DC-1-Calendar\\Intellij\\Sample Files\\Philippine Holidays.csv");
+			CsvReader csvReader = new CsvReader("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\Philippine Holidays.csv");
 
 			CSVInterpreterAdapter adapter = new CSVInterpreterAdapter(csvReader.getContent());
 			events = adapter.dataToCalendarEvents();
@@ -273,7 +293,7 @@ public class CalendarProgram{
 					eventCounter++;
 			}
 			if (eventCounter>0)
-				modelCalendarTable.setValueAt(i +"  Events: "+ eventCounter, row, column);
+				modelCalendarTable.setValueAt(i + "  Events: "+ eventCounter, row, column);
 			else
 			modelCalendarTable.setValueAt(i, row, column);
 		}
