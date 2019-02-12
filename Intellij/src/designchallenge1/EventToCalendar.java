@@ -16,7 +16,7 @@ public class EventToCalendar
     {
         ArrayList <CalendarEvent> sortedEvents = new ArrayList<>();
         for (CalendarEvent e: events)
-            if (e.getYear()==year)
+            if (e.getYear()==year&&e.getMonth()==month)
                 sortedEvents.add(e);
 
 

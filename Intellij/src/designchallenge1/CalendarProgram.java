@@ -38,6 +38,7 @@ public class CalendarProgram{
 
 	/**NEW ATTRIBUTES**/
 	ArrayList<CalendarEvent> events;
+	boolean hasConstructed;
 
 
 	/** Method used to change month and year**/
@@ -75,11 +76,14 @@ public class CalendarProgram{
 
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		System.out.println("Refreshed\nMonth" + month + "\nYear"+ year);
+		if (hasConstructed)
+			insertEventNumber(month, year);
 
 	}
 
 	public CalendarProgram()
 	{
+		hasConstructed = false;
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}
@@ -201,6 +205,7 @@ public class CalendarProgram{
 		}
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
 		insertEventNumber(monthBound, yearBound);
+		hasConstructed = true;
 	}
 
 
@@ -218,7 +223,6 @@ public class CalendarProgram{
 				monthToday -= 1;
 			}
 			refreshCalendar(monthToday, yearToday);
-			insertEventNumber(monthBound, yearBound);
 		}
 	}
 	class btnNext_Action implements ActionListener
@@ -235,7 +239,6 @@ public class CalendarProgram{
 				monthToday += 1;
 			}
 			refreshCalendar(monthToday, yearToday);
-			insertEventNumber(monthBound, yearBound);
 		}
 	}
 	class cmbYear_Action implements ActionListener
@@ -248,8 +251,6 @@ public class CalendarProgram{
 				yearToday = Integer.parseInt(b);
 				refreshCalendar(monthToday, yearToday);
 			}
-			System.out.println("Size "+ events.size());
-			insertEventNumber(monthToday, yearToday);
 		}
 	}
 
