@@ -47,7 +47,7 @@ public class tester //Used to test classes not needed in the program
         }
 */
         ArrayList<CalendarEvent> e = new ArrayList<>();
-        e.add(new CalendarEvent(1, 1, 2001, "poop", new Color(0)));
+        e.add(new CalendarEvent(2, 12, 2019, "poop", new Color(0)));
       SmsController controller = new SmsController();
       controller.update(e);
 

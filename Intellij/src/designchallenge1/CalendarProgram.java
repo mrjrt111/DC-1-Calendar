@@ -114,6 +114,12 @@ public class CalendarProgram{
 
 				/*CHANGE*/
 				Popup.open();
+				((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
+				((Popup)Popup).setMonth(monthLabel.getText());
+				((Popup)Popup).setYear(yearBound);
+				/*System.out.println ((int)modelCalendarTable.getValueAt(row, col));
+				System.out.println (monthLabel.getText());
+				System.out.println (yearBound);*/
 				/*CHANGE*/
 			}
 		});

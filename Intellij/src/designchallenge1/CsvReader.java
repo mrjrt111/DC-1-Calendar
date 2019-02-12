@@ -16,9 +16,16 @@ public class CsvReader extends ParserAbstract
 
     public CsvReader(String filename) throws Exception
     {
-        this.filename = filename;
-        loadFile();
-        readFile();
+        File fileTest = new File(filename);
+        if (fileTest.exists())
+        {
+            this.filename = filename;
+            loadFile();
+            readFile();
+        }
+        else
+            System.out.println("The file you loaded");
+
     }
 
     @Override
@@ -45,8 +52,10 @@ public class CsvReader extends ParserAbstract
         {
             fEntry = temp.split(", ");
 
-            for (i = 0; i<size; i++)
+            for (i = 0; i<size; i++) {
                 content.add(fEntry[i]);
+                System.out.println (content.get(i));
+            }
         }
         bReader.close();
         fReader.close();
