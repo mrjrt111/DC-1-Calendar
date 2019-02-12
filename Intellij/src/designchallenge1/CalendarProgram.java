@@ -177,6 +177,8 @@ public class CalendarProgram{
 		}
 
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
+		//NEW CODES ADDED AT THIS AREA
+
 	}
 
 

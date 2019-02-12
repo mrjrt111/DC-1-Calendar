@@ -23,7 +23,7 @@ public class MDYEventColor {
 
             temp = content.get(i).split("/");
 
-            events.add(new CalendarEvent(Integer.valueOf(temp[0])+1,Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),
+            events.add(new CalendarEvent(Integer.valueOf(temp[0])-1,Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),
                     content.get(i+1),new Color (Integer.valueOf(content.get(i+2)))));
 
         }
