@@ -48,7 +48,6 @@ public class Popup implements PopupAdapter{
                 System.out.println(event.getText());
                 frame.setVisible(false);
                 System.out.println("BEFORE: " + day + '/' + month + '/' + year);
-                //cEvent = new CalendarEvent(month, day, year, event.getText(), color);
                 cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
                 System.out.println (cEvent.get(0).getDay());
 
@@ -121,29 +120,29 @@ public class Popup implements PopupAdapter{
     }
     public void setMonth (String month) {
         switch(month) {
-            case "January": this.month = 1;
+            case "January": this.month = 0;
                 break;
-            case "February": this.month = 2;
+            case "February": this.month = 1;
                 break;
-            case "March": this.month = 3;
+            case "March": this.month = 2;
                 break;
-            case "April": this.month = 4;
+            case "April": this.month = 3;
                 break;
-            case "May": this.month = 5;
+            case "May": this.month = 4;
                 break;
-            case "June": this.month = 6;
+            case "June": this.month = 5;
                 break;
-            case "July": this.month = 7;
+            case "July": this.month = 6;
                 break;
-            case "August": this.month = 8;
+            case "August": this.month = 7;
                 break;
-            case "September": this.month = 9;
+            case "September": this.month = 8;
                 break;
-            case "October": this.month = 10;
+            case "October": this.month = 9;
                 break;
-            case "November": this.month = 11;
+            case "November": this.month = 10;
                 break;
-            case "December": this.month = 12;
+            case "December": this.month = 11;
                 break;
             default: this.month = 0;
                 break;

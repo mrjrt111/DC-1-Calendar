@@ -13,6 +13,6 @@ public class FbController implements ObserverInterface
     {
         view = new FBView();
         for (CalendarEvent e:event)
-        view.showNewEvent(e.getHoliday(), e.getMonth(), e.getDay(), e.getYear(), e.getColor());
+        view.showNewEvent(e.getHoliday(), e.getMonth() + 1, e.getDay(), e.getYear(), e.getColor());
     }
 }
