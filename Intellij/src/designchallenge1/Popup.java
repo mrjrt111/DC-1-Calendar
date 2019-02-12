@@ -25,9 +25,7 @@ public class Popup implements PopupAdapter{
     public int rgb;
 
     DataSavingAbstract CSVWriter;
-    //CalendarEvent cEvent;
     ArrayList<CalendarEvent> cEvent = new ArrayList<>();
-    ParserAbstract CSVReader;
     SmsController SMS;
     FbController FB;
 
@@ -51,11 +49,6 @@ public class Popup implements PopupAdapter{
                 System.out.println("BEFORE: " + day + '/' + month + '/' + year);
                 cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
                 System.out.println (cEvent.get(0).getDay());
-
-                try {
-                    CSVReader = new CsvReader("Events Supreme.csv");
-                    System.out.println ("READ");
-                } catch (Exception e1) { e1.printStackTrace(); }
 
                 CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
                 try {
