@@ -201,7 +201,7 @@ public class CalendarProgram{
 			System.out.println("No CSV file found");
 		}
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
-		insertEvent(monthBound, yearBound);
+		inserEventNumber(monthBound, yearBound);
 	}
 
 
@@ -219,6 +219,7 @@ public class CalendarProgram{
 				monthToday -= 1;
 			}
 			refreshCalendar(monthToday, yearToday);
+			inserEventNumber(monthBound, yearBound);
 		}
 	}
 	class btnNext_Action implements ActionListener
@@ -235,6 +236,7 @@ public class CalendarProgram{
 				monthToday += 1;
 			}
 			refreshCalendar(monthToday, yearToday);
+			inserEventNumber(monthBound, yearBound);
 		}
 	}
 	class cmbYear_Action implements ActionListener
@@ -246,11 +248,12 @@ public class CalendarProgram{
 				String b = cmbYear.getSelectedItem().toString();
 				yearToday = Integer.parseInt(b);
 				refreshCalendar(monthToday, yearToday);
+				inserEventNumber(monthBound, yearBound);
 			}
 		}
 	}
 
-	public void insertEvent (int month, int year)
+	public void inserEventNumber (int month, int year)
 	{
 		int nod, som, eventCounter;
 		EventToCalendar eventToCalendar = new EventToCalendar(events);
