@@ -76,6 +76,7 @@ public class CalendarProgram{
 
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		System.out.println("Refreshed\nMonth" + month + "\nYear"+ year);
+
 	}
 
 	public CalendarProgram()
@@ -186,7 +187,7 @@ public class CalendarProgram{
 			cmbYear.addItem(String.valueOf(i));
 		}
 
-		refreshCalendar (monthBound, yearBound); //Refresh calendar
+
 
 		try {
 			CsvReader csvReader = new CsvReader("C:\\Users\\jarrett\\Documents\\DLSU\\AY 2018 - 2019\\Term 2\\SWDESPA" +
@@ -197,9 +198,10 @@ public class CalendarProgram{
 
 		} catch (Exception e) {
 			e.printStackTrace();
+			System.out.println("No CSV file found");
 		}
-
-
+		refreshCalendar (monthBound, yearBound); //Refresh calendar
+		insertEvent(monthBound, yearBound);
 	}
 
 
@@ -246,5 +248,31 @@ public class CalendarProgram{
 				refreshCalendar(monthToday, yearToday);
 			}
 		}
+	}
+
+	public void insertEvent (int month, int year)
+	{
+		int nod, som, eventCounter;
+		EventToCalendar eventToCalendar = new EventToCalendar(events);
+		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
+		nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
+		som = cal.get(GregorianCalendar.DAY_OF_WEEK);
+		System.out.println("SIZE " + eventToCalendar.eventsInMonth(month, year).size());
+		for (int i = 1; i <= nod; i++)
+		{
+			eventCounter = 0;
+			int row = new Integer((i+som-2)/7);
+			int column  =  (i+som-2)%7;
+			for (int j = 0; j<eventToCalendar.eventsInMonth(month, year).size(); j++)
+			{
+				if (i == eventToCalendar.eventsInMonth(month, year).get(j).getDay())
+					eventCounter++;
+			}
+			if (eventCounter>0)
+				modelCalendarTable.setValueAt(i +"  Events: "+ eventCounter, row, column);
+			else
+			modelCalendarTable.setValueAt(i, row, column);
+		}
+
 	}
 }
