@@ -37,6 +37,10 @@ public class CalendarProgram{
 	public JTable calendarTable;
 	public DefaultTableModel modelCalendarTable;
 
+	/**NEW ATTRIBUTES**/
+	ArrayList<CalendarEvent> events;
+
+
 	/** Method used to change month and year**/
 	public void refreshCalendar(int month, int year)
 	{
@@ -183,7 +187,18 @@ public class CalendarProgram{
 		}
 
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
-		//NEW CODES ADDED AT THIS AREA
+
+		try {
+			CsvReader csvReader = new CsvReader("C:\\Users\\jarrett\\Documents\\DLSU\\AY 2018 - 2019\\Term 2\\SWDESPA" +
+					"\\MP\\DC 1\\Git Version\\DC-1-Calendar\\Intellij\\Sample Files\\Philippine Holidays.csv");
+
+			CSVInterpreterAdapter adapter = new CSVInterpreterAdapter(csvReader.getContent());
+			events = adapter.dataToCalendarEvents();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 
 	}
 
