@@ -19,11 +19,10 @@ public class Popup2 implements PopupAdapter{
     PopupAdapter Popup;
     ArrayList<CalendarEvent> events = new ArrayList<>();
 
+    int month, day, year;
+
     public Popup2 () {
         eventList = new JList (events.toArray());
-        eventList.setListData(events.toArray());
-        for (int i = 0; i < events.size(); i++)
-            System.out.println ("HOI: " + events.get(i).getHoliday());
         eventList.setVisible(true);
         eventList.setBounds(15, 25, 260, 400);
 
@@ -56,7 +55,7 @@ public class Popup2 implements PopupAdapter{
         pane.setLayout(null);
 
         eventPanel = new JPanel(null);
-        eventPanel.setBorder(BorderFactory.createTitledBorder("Color"));
+        eventPanel.setBorder(BorderFactory.createTitledBorder(""));
         eventPanel.setBounds(0, 0, 300, 500);
 
         pane.add(eventPanel);
@@ -73,8 +72,26 @@ public class Popup2 implements PopupAdapter{
 
     public void setEvents (ArrayList<CalendarEvent> events) {
         this.events = events;
+        ArrayList<String> eventName = new ArrayList<>();
+        for (CalendarEvent e: events)
+            eventName.add(e.getHoliday());
+
+        eventList.setListData(eventName.toArray());
+
         for (int i = 0; i < events.size(); i++)
-            System.out.println ("Holiday: " + events.get(i).getHoliday());
-        System.out.println ("SIZE: " + events.size());
+            System.out.println ("HOI: " + events.get(i).getHoliday());
+
+
+
     };
+
+    public void setDate (int month, int day, int year)
+    {
+        this.month = month;
+        this.day = day;
+        this.year = year;
+
+        String date = month + "/" + day + "/" + year;
+        eventPanel.setBorder(BorderFactory.createTitledBorder(date));
+    }
 }

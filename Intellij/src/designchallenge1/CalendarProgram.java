@@ -89,10 +89,7 @@ public class CalendarProgram{
 		}
 		catch (Exception e) {}
 
-		/*CHANGE*/
-		Popup = new Popup();
-		Popup2 = new Popup2();
-		/*CHANGE*/
+
 
 		frmMain = new JFrame ("Calendar Application");
 		frmMain.setSize(660, 750);
@@ -114,44 +111,7 @@ public class CalendarProgram{
 		};
 
 		calendarTable = new JTable(modelCalendarTable);
-		calendarTable.addMouseListener(new MouseAdapter()
-		{
-			public void mouseClicked(MouseEvent evt)
-			{
-				int col = calendarTable.getSelectedColumn();
-				int row = calendarTable.getSelectedRow();
 
-				/*CHANGE*/
-				//Popup.open();
-				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
-				String[] days = str.split(" ");
-				String day = days[0];
-				//((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
-				((Popup)Popup).setDay(Integer.valueOf(day));
-				((Popup)Popup).setMonth(monthLabel.getText());
-				//((Popup)Popup).setYear(yearBound);
-
-				Popup2.open();
-				EventToCalendar sort = new EventToCalendar(events);
-				events = sort.eventsInMonth(((Popup)Popup).getMonth(), yearBound);
-				ArrayList<CalendarEvent> same = new ArrayList<>();
-
-				for (int i = 0; i<events.size(); i++)
-					if (((Popup)Popup).getDay() == events.get(i).getDay()) {
-						System.out.println ("event: " + events.get(i).getDay());
-						same.add(events.get(i));
-					}
-
-				((Popup2)Popup2).setEvents(same);
-				//System.out.println (same.get(0).getHoliday());
-
-
-				/*System.out.println ((int)modelCalendarTable.getValueAt(row, col));
-				System.out.println (monthLabel.getText());
-				System.out.println (yearBound);*/
-				/*CHANGE*/
-			}
-		});
 
 		scrollCalendarTable = new JScrollPane(calendarTable);
 		calendarPanel = new JPanel(null);
@@ -214,7 +174,7 @@ public class CalendarProgram{
 
 
 		try {
-			CsvReader csvReader = new CsvReader("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\Philippine Holidays.csv");
+			CsvReader csvReader = new CsvReader("Sample Files/Philippine Holidays.csv");
 
 			CSVInterpreterAdapter adapter = new CSVInterpreterAdapter(csvReader.getContent());
 			events = adapter.dataToCalendarEvents();
@@ -225,7 +185,65 @@ public class CalendarProgram{
 		}
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
 		insertEventNumber(monthBound, yearBound);
+		DayChecker dayChecker = new DayChecker(events);
+		System.out.println("sIZE" + events.size());
+		dayChecker.checkEvents();
 		hasConstructed = true;
+
+		/*CHANGE*/
+		Popup = new Popup();
+		Popup2 = new Popup2();
+		/*CHANGE*/
+
+		calendarTable.addMouseListener(new MouseAdapter()
+		{
+			public void mouseClicked(MouseEvent evt)
+			{
+				int col = calendarTable.getSelectedColumn();
+				int row = calendarTable.getSelectedRow();
+
+				/*CHANGE*/
+				//Popup.open();
+				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
+				System.out.println("VAL OF str: "+ str);
+				String[] days = str.split(" ");
+				String day = days[0];
+				System.out.println("VAL OF day: "+ day);
+				//((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
+				((Popup)Popup).setDay(Integer.valueOf(day));
+				((Popup)Popup).setMonth(monthLabel.getText());
+				//((Popup)Popup).setYear(yearBound);
+
+
+				Popup2.open();
+				EventToCalendar sort = new EventToCalendar(events);
+				events = sort.eventsInMonth(((Popup)Popup).getMonth(), yearBound);
+				ArrayList<CalendarEvent> same = new ArrayList<>();
+
+				for (int i = 0; i<events.size(); i++)
+					if (((Popup)Popup).getDay() == events.get(i).getDay()) {
+						System.out.println ("event: " + events.get(i).getDay());
+						same.add(events.get(i));
+					}
+
+
+
+				/** JARRETT CHANGE**/
+
+				((Popup2) Popup2).setDate(monthToday+1, Integer.valueOf(day), yearToday);
+				((Popup2)Popup2).setEvents(same);
+				System.out.println("same " + same.size());
+
+				/**CHANGE END**/
+				//System.out.println (same.get(0).getHoliday());
+
+
+				/*System.out.println ((int)modelCalendarTable.getValueAt(row, col));
+				System.out.println (monthLabel.getText());
+				System.out.println (yearBound);*/
+				/*CHANGE*/
+			}
+		});
 	}
 
 
@@ -274,7 +292,7 @@ public class CalendarProgram{
 		}
 	}
 
-	public void insertEventNumber(int month, int year)
+	private void insertEventNumber(int month, int year)
 	{
 		int nod, som, eventCounter;
 		EventToCalendar eventToCalendar = new EventToCalendar(events);
@@ -285,7 +303,7 @@ public class CalendarProgram{
 		for (int i = 1; i <= nod; i++)
 		{
 			eventCounter = 0;
-			int row = new Integer((i+som-2)/7);
+			int row = (i+som-2)/7;
 			int column  =  (i+som-2)%7;
 			for (int j = 0; j<eventToCalendar.eventsInMonth(month, year).size(); j++)
 			{
@@ -299,4 +317,6 @@ public class CalendarProgram{
 		}
 
 	}
+
+
 }
