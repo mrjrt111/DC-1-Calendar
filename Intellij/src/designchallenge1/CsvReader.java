@@ -20,7 +20,6 @@ public class CsvReader extends ParserAbstract
         loadFile();
         readFile();
     }
-
     @Override
     public void loadFile() throws Exception
     {
@@ -34,7 +33,7 @@ public class CsvReader extends ParserAbstract
     {
         int i;
 
-        String [] fEntry = bReader.readLine().split(", "); //gets the first entry and splits it
+        String [] fEntry = bReader.readLine().split(","); //gets the first entry and splits it
         size = fEntry.length; //gets the number of entry in the first line
         String temp;
 
@@ -43,7 +42,7 @@ public class CsvReader extends ParserAbstract
 
         while((temp = bReader.readLine())!=null) //loop that adds the remaining entries
         {
-            fEntry = temp.split(", ");
+            fEntry = temp.split(",");
 
             for (i = 0; i<size; i++)
                 content.add(fEntry[i]);
