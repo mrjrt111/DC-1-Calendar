@@ -10,7 +10,6 @@ package designchallenge1;
  */
 
 import javax.swing.*;
-import javax.swing.event.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -201,7 +200,7 @@ public class CalendarProgram{
 			System.out.println("No CSV file found");
 		}
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
-		inserEventNumber(monthBound, yearBound);
+		insertEventNumber(monthBound, yearBound);
 	}
 
 
@@ -219,7 +218,7 @@ public class CalendarProgram{
 				monthToday -= 1;
 			}
 			refreshCalendar(monthToday, yearToday);
-			inserEventNumber(monthBound, yearBound);
+			insertEventNumber(monthBound, yearBound);
 		}
 	}
 	class btnNext_Action implements ActionListener
@@ -236,7 +235,7 @@ public class CalendarProgram{
 				monthToday += 1;
 			}
 			refreshCalendar(monthToday, yearToday);
-			inserEventNumber(monthBound, yearBound);
+			insertEventNumber(monthBound, yearBound);
 		}
 	}
 	class cmbYear_Action implements ActionListener
@@ -248,12 +247,13 @@ public class CalendarProgram{
 				String b = cmbYear.getSelectedItem().toString();
 				yearToday = Integer.parseInt(b);
 				refreshCalendar(monthToday, yearToday);
-				inserEventNumber(monthBound, yearBound);
 			}
+			System.out.println("Size "+ events.size());
+			insertEventNumber(monthToday, yearToday);
 		}
 	}
 
-	public void inserEventNumber (int month, int year)
+	public void insertEventNumber(int month, int year)
 	{
 		int nod, som, eventCounter;
 		EventToCalendar eventToCalendar = new EventToCalendar(events);
