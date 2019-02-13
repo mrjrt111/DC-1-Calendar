@@ -1,11 +1,9 @@
 package designchallenge1;
 
 import javax.swing.*;
-import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -41,12 +39,12 @@ public class EventList implements PopupAdapter {
         Add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Popup = new Popup();
+                Popup = new EventAdder();
                 Popup.open();
 
-                ((Popup)Popup).setDay(day);
-                ((Popup)Popup).setNumMonth(month-1);
-                ((Popup)Popup).setYear(year);
+                ((EventAdder)Popup).setDay(day);
+                ((EventAdder)Popup).setNumMonth(month-1);
+                ((EventAdder)Popup).setYear(year);
             }
         });
         Add.setBounds(50, 450, 80, 20);

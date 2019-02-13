@@ -191,7 +191,7 @@ public class CalendarProgram{
 		hasConstructed = true;
 
 		/*CHANGE*/
-		Popup = new Popup();
+		Popup = new EventAdder();
 		Popup2 = new EventList();
 		/*CHANGE*/
 
@@ -203,25 +203,25 @@ public class CalendarProgram{
 				int row = calendarTable.getSelectedRow();
 
 				/*CHANGE*/
-				//Popup.open();
+				//EventAdder.open();
 				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
 				//System.out.println("VAL OF str: "+ str);
 				String[] days = str.split(" ");
 				String day = days[0];
 				//System.out.println("VAL OF day: "+ day);
-				//((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
-				((Popup)Popup).setDay(Integer.valueOf(day));
-				((Popup)Popup).setMonth(monthLabel.getText());
-				//((Popup)Popup).setYear(yearBound);
+				//((EventAdder)EventAdder).setDay((int)modelCalendarTable.getValueAt(row, col));
+				((EventAdder)Popup).setDay(Integer.valueOf(day));
+				((EventAdder)Popup).setMonth(monthLabel.getText());
+				//((EventAdder)EventAdder).setYear(yearBound);
 
 
 				Popup2.open();
 				EventToCalendar sort = new EventToCalendar(events);
-				events = sort.eventsInMonth(((Popup)Popup).getMonth(), yearBound);
+				events = sort.eventsInMonth(((EventAdder)Popup).getMonth(), yearBound);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
 				for (int i = 0; i<events.size(); i++)
-					if (((Popup)Popup).getDay() == events.get(i).getDay()) {
+					if (((EventAdder)Popup).getDay() == events.get(i).getDay()) {
 						//System.out.println ("event: " + events.get(i).getDay());
 						same.add(events.get(i));
 					}

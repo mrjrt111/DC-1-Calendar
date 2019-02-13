@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 /*POOP*/
 
-public class Popup implements PopupAdapter{
+public class EventAdder implements PopupAdapter{
     public JScrollPane scrollPane;
 
     public JTextField event;
@@ -29,7 +29,7 @@ public class Popup implements PopupAdapter{
     SmsController SMS;
     FbController FB;
 
-    public Popup () {
+    public EventAdder() {
         this.day = 0;
         this.month = 0;
         this.year = 0;
