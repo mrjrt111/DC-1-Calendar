@@ -1,5 +1,7 @@
 package designchallenge1;
 
+import javafx.scene.control.ListCell;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -19,11 +21,12 @@ public class EventList implements PopupAdapter {
     public JPanel eventPanel;
 
     PopupAdapter Popup;
-    ArrayList<CalendarEvent> events = new ArrayList<>();
+    ArrayList<CalendarEvent> events;
 
     int month, day, year;
 
     public EventList() {
+        this.events = new ArrayList<>();
 
         eventList = new JList (events.toArray());
         eventList.setVisible(true);
@@ -54,13 +57,20 @@ public class EventList implements PopupAdapter {
         Ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println ("EVENTSIZE: " + ((EventAdder)Popup).getEvents().size());
-                if (((EventAdder)Popup).getEvents().size() > 0) {
-                    events.addAll(((EventAdder)Popup).getEvents());
-                    for (int i =0; i<events.size(); i++)
-                        System.out.println ("kaka: " + i + " - " + events.get(i).getHoliday());
-                    setEvents(events);
+                System.out.println("O");
+                //System.out.println ("EVENTSIZE: " + ((EventAdder)Popup).getEvents().size());
+                if (((EventAdder)Popup).getEvents() != null) {
+                    System.out.println ("Not null");
+                    /*if (!((EventAdder)Popup).getEvents().isEmpty()) {
+                        System.out.print("not Empty");
+                        /*events.addAll(((EventAdder) Popup).getEvents());
+                        for (int i = 0; i < events.size(); i++)
+                            System.out.println("kaka: " + i + " - " + events.get(i).getHoliday());
+                        setEvents(events);*/
+                    //}
+                    //System.out.print("Empty");
                 }
+                System.out.println ("null");
 
                 frame.setVisible(false);
             }
@@ -95,10 +105,15 @@ public class EventList implements PopupAdapter {
         for (int i =0; i<events.size(); i++)
             System.out.println ("koko: " + i + " - " + events.get(i).getHoliday());
         ArrayList<String> eventName = new ArrayList<>();
-        for (CalendarEvent e: events)
+        //ArrayList<Color> color = new ArrayList<>();
+        for (CalendarEvent e: events) {
             eventName.add(e.getHoliday());
+            //color.add(e.getColor());
+        }
 
         eventList.setListData(eventName.toArray());
+        eventList.setCellRenderer(new ListRender());
+        //eventList.setCellRenderer(new MyListCellThing());
 
         //for (int i = 0; i < events.size(); i++)
         //    System.out.println ("HOI: " + events.get(i).getHoliday());
@@ -121,5 +136,18 @@ public class EventList implements PopupAdapter {
         String date = month + "/" + day + "/" + year;
         System.out.println ("setdate: " + date);
         eventPanel.setBorder(BorderFactory.createTitledBorder(date));
+    }
+
+    class ListRender extends DefaultListCellRenderer
+    {
+        public Component getListCellRendererComponent (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
+        {
+            super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+            for (int i=0; i<events.size(); i++) {
+                if (value.equals(events.get(i).getHoliday()))
+                    setForeground(events.get(i).getColor());
+            }
+            return this;
+        }
     }
 }

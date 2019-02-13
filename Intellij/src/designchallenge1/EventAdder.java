@@ -162,7 +162,7 @@ public class EventAdder implements PopupAdapter{
     }
 
     public ArrayList<CalendarEvent> getEvents () {
-        System.out.println(cEvent.size());
+        //System.out.println(cEvent.size());
         for (int i =0; i<cEvent.size(); i++)
             System.out.println ("Banana: " + cEvent.get(i).getHoliday());
         return cEvent;
