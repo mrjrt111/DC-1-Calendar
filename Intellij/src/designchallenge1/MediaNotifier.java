@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class MediaNotifier implements SubjectInterface
 {
-    ArrayList<CalendarEvent> currentEvents;
-    ArrayList <ObserverInterface> observer;
+    private ArrayList<CalendarEvent> currentEvents;
+    private ArrayList <ObserverInterface> observer;
 
     public MediaNotifier(ArrayList<CalendarEvent> currentEvents, ArrayList<ObserverInterface> observer)
     {

@@ -51,7 +51,7 @@ public class EventList implements PopupAdapter {
         });
         Add.setBounds(50, 450, 80, 20);
 
-        Edit = new JButton("Edit");
+        Edit = new JButton("Delete");
         Edit.setVisible(true);
         Edit.addActionListener(new ActionListener() {
             @Override
