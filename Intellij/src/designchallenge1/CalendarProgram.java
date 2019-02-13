@@ -15,6 +15,7 @@ import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.util.*;
 
 public class CalendarProgram{
@@ -109,6 +110,7 @@ public class CalendarProgram{
 
 	public CalendarProgram()
 	{
+
 		hasConstructed = false;
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -282,6 +284,19 @@ public class CalendarProgram{
 				System.out.println (monthLabel.getText());
 				System.out.println (yearBound);*/
 				/*CHANGE*/
+			}
+		});
+
+		frmMain.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing (WindowEvent e)
+			{
+				try {
+					new MDYEventColorCsvWriter("saveFile.csv", events);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+				System.exit(0);
 			}
 		});
 	}
@@ -557,6 +572,7 @@ public class CalendarProgram{
 			JTextFieldEventAdder.setForeground(colorEventAdder);
 		}
 	}
+
 }
 
 

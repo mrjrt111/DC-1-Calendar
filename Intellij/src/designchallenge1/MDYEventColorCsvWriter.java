@@ -13,11 +13,11 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
     File file;
     FileWriter fileWriter;
     ArrayList<CalendarEvent> content;
-    public MDYEventColorCsvWriter(String filename, ArrayList <CalendarEvent> content)
-    {
+    public MDYEventColorCsvWriter(String filename, ArrayList <CalendarEvent> content) throws IOException {
         bufferedWriter = null;
         this.file = new File (filename);
         this.content = content;
+        saveData();
     }
 
 
