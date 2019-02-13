@@ -174,7 +174,7 @@ public class CalendarProgram{
 
 
 		try {
-			CsvReader csvReader = new CsvReader("Sample Files/Philippine Holidays.csv");
+			CsvReader csvReader = new CsvReader("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\Philippine Holidays.csv");
 
 			CSVInterpreterAdapter adapter = new CSVInterpreterAdapter(csvReader.getContent());
 			events = adapter.dataToCalendarEvents();
@@ -186,7 +186,7 @@ public class CalendarProgram{
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
 		insertEventNumber(monthBound, yearBound);
 		DayChecker dayChecker = new DayChecker(events);
-		System.out.println("sIZE" + events.size());
+		//System.out.println("sIZE" + events.size());
 		dayChecker.checkEvents();
 		hasConstructed = true;
 
@@ -205,10 +205,10 @@ public class CalendarProgram{
 				/*CHANGE*/
 				//Popup.open();
 				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
-				System.out.println("VAL OF str: "+ str);
+				//System.out.println("VAL OF str: "+ str);
 				String[] days = str.split(" ");
 				String day = days[0];
-				System.out.println("VAL OF day: "+ day);
+				//System.out.println("VAL OF day: "+ day);
 				//((Popup)Popup).setDay((int)modelCalendarTable.getValueAt(row, col));
 				((Popup)Popup).setDay(Integer.valueOf(day));
 				((Popup)Popup).setMonth(monthLabel.getText());
@@ -222,7 +222,7 @@ public class CalendarProgram{
 
 				for (int i = 0; i<events.size(); i++)
 					if (((Popup)Popup).getDay() == events.get(i).getDay()) {
-						System.out.println ("event: " + events.get(i).getDay());
+						//System.out.println ("event: " + events.get(i).getDay());
 						same.add(events.get(i));
 					}
 
@@ -232,7 +232,7 @@ public class CalendarProgram{
 
 				((Popup2) Popup2).setDate(monthToday+1, Integer.valueOf(day), yearToday);
 				((Popup2)Popup2).setEvents(same);
-				System.out.println("same " + same.size());
+				//System.out.println("same " + same.size());
 
 				/**CHANGE END**/
 				//System.out.println (same.get(0).getHoliday());
@@ -299,7 +299,7 @@ public class CalendarProgram{
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		som = cal.get(GregorianCalendar.DAY_OF_WEEK);
-		System.out.println("SIZE " + eventToCalendar.eventsInMonth(month, year).size());
+		//System.out.println("SIZE " + eventToCalendar.eventsInMonth(month, year).size());
 		for (int i = 1; i <= nod; i++)
 		{
 			eventCounter = 0;

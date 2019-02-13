@@ -1,13 +1,17 @@
 package designchallenge1;
 
 import javax.swing.*;
+import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class Popup2 implements PopupAdapter{
+
+public class Popup2 implements PopupAdapter {
+    public JScrollPane scrollPane;
+
     public JButton Add, Edit;
     public JList eventList;
 
@@ -22,9 +26,15 @@ public class Popup2 implements PopupAdapter{
     int month, day, year;
 
     public Popup2 () {
+
         eventList = new JList (events.toArray());
         eventList.setVisible(true);
-        eventList.setBounds(15, 25, 260, 400);
+        eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        //eventList.setBounds(15, 25, 260, 400);
+        eventList.setPreferredSize(new Dimension (260, 400));
+
+        scrollPane = new JScrollPane(eventList);
+        scrollPane.setBounds (15, 25, 260, 400);
 
         Add = new JButton("Add");
         Add.setVisible(true);
@@ -33,6 +43,10 @@ public class Popup2 implements PopupAdapter{
             public void actionPerformed(ActionEvent e) {
                 Popup = new Popup();
                 Popup.open();
+
+                ((Popup)Popup).setDay(day);
+                ((Popup)Popup).setNumMonth(month-1);
+                ((Popup)Popup).setYear(year);
             }
         });
         Add.setBounds(50, 450, 80, 20);
@@ -59,7 +73,7 @@ public class Popup2 implements PopupAdapter{
         eventPanel.setBounds(0, 0, 300, 500);
 
         pane.add(eventPanel);
-        eventPanel.add(eventList);
+        eventPanel.add(scrollPane);
         eventPanel.add(Add);
         eventPanel.add(Edit);
     }
@@ -78,11 +92,8 @@ public class Popup2 implements PopupAdapter{
 
         eventList.setListData(eventName.toArray());
 
-        for (int i = 0; i < events.size(); i++)
-            System.out.println ("HOI: " + events.get(i).getHoliday());
-
-
-
+        //for (int i = 0; i < events.size(); i++)
+        //    System.out.println ("HOI: " + events.get(i).getHoliday());
     };
 
     public void setDate (int month, int day, int year)
@@ -92,6 +103,7 @@ public class Popup2 implements PopupAdapter{
         this.year = year;
 
         String date = month + "/" + day + "/" + year;
+        System.out.println ("setdate: " + date);
         eventPanel.setBorder(BorderFactory.createTitledBorder(date));
     }
 }

@@ -46,7 +46,7 @@ public class Popup implements PopupAdapter{
             public void actionPerformed(ActionEvent e) {
                 System.out.println(event.getText());
                 frame.setVisible(false);
-                System.out.println("BEFORE: " + day + '/' + month + '/' + year);
+                //System.out.println("BEFORE: " + day + '/' + month + '/' + year);
                 cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
                 System.out.println (cEvent.get(0).getDay());
 
@@ -62,7 +62,7 @@ public class Popup implements PopupAdapter{
                 SMS.update(cEvent);
                 FB.update(cEvent);
 
-                System.out.println("Event: " + day + '/' + month + '/' + year);
+                //System.out.println("Event: " + day + '/' + month + '/' + year);
             }
         });
         ok.setBounds(50, 400, 80, 30);
@@ -146,16 +146,21 @@ public class Popup implements PopupAdapter{
         }
     }
 
+    public void setNumMonth (int month){
+        this.month = month;
+        //System.out.println ("month: " + month);
+    }
+
     public void setYear (int year) {
         this.year = year;
     }
 
     class ColorSelection implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
-            System.out.println ("IN");
+            //System.out.println ("IN");
             color = colorChooser.getColor();
             rgb = color.getRGB();
-            System.out.println (color + ": " + rgb);
+            //System.out.println (color + ": " + rgb);
             event.setForeground(color);
         }
     }
