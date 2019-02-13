@@ -5,14 +5,14 @@ import java.util.ArrayList;
 /*
     This class acts an Adapter to the CSV interpreter in the calendar program
 */
-public class CSVInterpreterAdapter implements DataInterpreterInterface
+public class InterpreterAdapter implements DataInterpreterInterface
 {
     private MDYEventColor interpreter;
 
     /*
         This constructor accepts the interface used here.
     */
-    public CSVInterpreterAdapter(ArrayList<String> content) {
+    public InterpreterAdapter(ArrayList<String> content) {
         this.interpreter = new MDYEventColor(content);
     }
 

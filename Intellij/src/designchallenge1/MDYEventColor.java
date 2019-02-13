@@ -20,7 +20,7 @@ public class MDYEventColor {
         ArrayList <CalendarEvent> events = new ArrayList<>();
         for (int i = 0; i<content.size(); i+=3)
         {
-
+            System.out.println(content.get(i));
             temp = content.get(i).split("/");
 
             events.add(new CalendarEvent(Integer.valueOf(temp[0])-1,Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),

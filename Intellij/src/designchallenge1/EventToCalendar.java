@@ -19,15 +19,30 @@ public class EventToCalendar
             if (e.getYear()==year&&e.getMonth()==month)
                 sortedEvents.add(e);
 
+        System.out.println("size "+ sortedEvents.size());
 
         for (int i = 0; i<sortedEvents.size()-1; i++)
-            for (int j = 0; j<sortedEvents.size()-i; j++)
-                if (sortedEvents.get(j).getDay()>sortedEvents.get(j+1).getDay())
+        {
+            System.out.println("loop I: " + i);
+            for (int j = 0; j<sortedEvents.size()-i-1; j++)
+            {
+                System.out.println("loop J: " + j);
+                System.out.println(sortedEvents.get(j).getMonth()+ "/"+
+                        sortedEvents.get(j).getDay()+"/"+ sortedEvents.get(j).getYear());
+                System.out.println(sortedEvents.get(j+1).getMonth()+ "/"+
+                        sortedEvents.get(j+1).getDay()+"/"+ sortedEvents.get(j+1).getYear());
+                System.out.println(sortedEvents.get(j).getDay() + "    " + sortedEvents.get(j+1).getDay());
+                if (sortedEvents.get(j).getDay()>=sortedEvents.get(j+1).getDay())
                 {
                     CalendarEvent temp = sortedEvents.get(j);
                     sortedEvents.set(j, sortedEvents.get(j+1));
-                    sortedEvents.set(j+1, sortedEvents.get(j));
+                    sortedEvents.set(j+1, temp);
                 }
+
+            }
+        }
+
+        System.out.println("size:" +sortedEvents.size());
 
 
 

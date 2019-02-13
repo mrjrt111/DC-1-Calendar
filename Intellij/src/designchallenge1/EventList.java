@@ -1,7 +1,5 @@
 package designchallenge1;
 
-import javafx.scene.control.ListCell;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,16 +9,13 @@ import java.util.ArrayList;
 
 public class EventList implements PopupAdapter {
     public JScrollPane scrollPane;
-
     public JButton Add, Ok;
     public JList eventList;
-
     public JColorChooser colorChooser;
-    public JFrame frame;
-    public Container pane;
+    public JFrame eventListFrame;
+    public Container eventListPane;
     public JPanel eventPanel;
-
-    PopupAdapter Popup;
+    PopupAdapter popupAdapter;
     ArrayList<CalendarEvent> events;
 
     int month, day, year;
@@ -42,12 +37,12 @@ public class EventList implements PopupAdapter {
         Add.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Popup = new EventAdder();
-                Popup.open();
+                popupAdapter = new EventAdder();
+                popupAdapter.open();
 
-                ((EventAdder)Popup).setDay(day);
-                ((EventAdder)Popup).setNumMonth(month-1);
-                ((EventAdder)Popup).setYear(year);
+                ((EventAdder) popupAdapter).setDay(day);
+                ((EventAdder) popupAdapter).setNumMonth(month-1);
+                ((EventAdder) popupAdapter).setYear(year);
             }
         });
         Add.setBounds(50, 450, 80, 20);
@@ -58,12 +53,12 @@ public class EventList implements PopupAdapter {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("O");
-                //System.out.println ("EVENTSIZE: " + ((EventAdder)Popup).getEvents().size());
-                if (((EventAdder)Popup).getEvents() != null) {
+                //System.out.println ("EVENTSIZE: " + ((EventAdder)popupAdapter).getEvents().size());
+                if (((EventAdder) popupAdapter).getEvents() != null) {
                     System.out.println ("Not null");
-                    /*if (!((EventAdder)Popup).getEvents().isEmpty()) {
+                    /*if (!((EventAdder)popupAdapter).getEvents().isEmpty()) {
                         System.out.print("not Empty");
-                        /*events.addAll(((EventAdder) Popup).getEvents());
+                        /*events.addAll(((EventAdder) popupAdapter).getEvents());
                         for (int i = 0; i < events.size(); i++)
                             System.out.println("kaka: " + i + " - " + events.get(i).getHoliday());
                         setEvents(events);*/
@@ -72,30 +67,30 @@ public class EventList implements PopupAdapter {
                 }
                 System.out.println ("null");
 
-                frame.setVisible(false);
+                eventListFrame.setVisible(false);
             }
         });
         Ok.setBounds(150, 450, 80, 20);
 
 
-        frame = new JFrame("Events");
-        frame.setSize(300, 530);
-        frame.setLayout(null);
-        pane = frame.getContentPane();
-        pane.setLayout(null);
+        eventListFrame = new JFrame("Events");
+        eventListFrame.setSize(300, 530);
+        eventListFrame.setLayout(null);
+        eventListPane = eventListFrame.getContentPane();
+        eventListPane.setLayout(null);
 
         eventPanel = new JPanel(null);
         eventPanel.setBorder(BorderFactory.createTitledBorder(""));
         eventPanel.setBounds(0, 0, 300, 500);
 
-        pane.add(eventPanel);
+        eventListPane.add(eventPanel);
         eventPanel.add(scrollPane);
         eventPanel.add(Add);
         eventPanel.add(Ok);
     }
 
     public void open() {
-        frame.setVisible(true);
+        eventListFrame.setVisible(true);
         eventPanel.setVisible(true);
         eventList.setVisible(true);
     }
