@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-public class Popup2 implements PopupAdapter {
+public class EventList implements PopupAdapter {
     public JScrollPane scrollPane;
 
     public JButton Add, Edit;
@@ -25,7 +25,7 @@ public class Popup2 implements PopupAdapter {
 
     int month, day, year;
 
-    public Popup2 () {
+    public EventList() {
 
         eventList = new JList (events.toArray());
         eventList.setVisible(true);

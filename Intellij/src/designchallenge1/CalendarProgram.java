@@ -192,7 +192,7 @@ public class CalendarProgram{
 
 		/*CHANGE*/
 		Popup = new Popup();
-		Popup2 = new Popup2();
+		Popup2 = new EventList();
 		/*CHANGE*/
 
 		calendarTable.addMouseListener(new MouseAdapter()
@@ -230,8 +230,8 @@ public class CalendarProgram{
 
 				/** JARRETT CHANGE**/
 
-				((Popup2) Popup2).setDate(monthToday+1, Integer.valueOf(day), yearToday);
-				((Popup2)Popup2).setEvents(same);
+				((EventList) Popup2).setDate(monthToday+1, Integer.valueOf(day), yearToday);
+				((EventList)Popup2).setEvents(same);
 				//System.out.println("same " + same.size());
 
 				/**CHANGE END**/

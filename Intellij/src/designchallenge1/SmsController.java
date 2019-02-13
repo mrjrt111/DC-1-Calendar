@@ -14,6 +14,7 @@ public class SmsController implements ObserverInterface {
     {
         SMSView view = new SMSView();
         Calendar calendar = Calendar.getInstance();
+        view.setTitle("SMS");
         for (CalendarEvent e:event) {
             calendar.set(e.getYear(), e.getMonth(), e.getDay());
             view.sendSMS(new SMS(e.getHoliday(), calendar, e.getColor()));

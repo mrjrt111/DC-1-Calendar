@@ -28,5 +28,6 @@ public class MediaNotifier implements SubjectInterface
     {
         for (ObserverInterface e: observer)
             e.update(currentEvents);
+
     }
 }
