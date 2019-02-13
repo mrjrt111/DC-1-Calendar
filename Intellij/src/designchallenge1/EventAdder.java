@@ -6,24 +6,23 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.io.IOException;
 import java.util.ArrayList;
 /*POOP*/
 
 public class EventAdder implements PopupAdapter{
-    public JScrollPane scrollPane;
+    public JScrollPane eventAdderScrollPane;
 
-    public JTextField event;
-    public JButton ok, cancel;
+    public JTextField JTextFieldEventAdder;
+    public JButton okEventAdderButton, cancelEventAdderButton;
 
-    public JColorChooser colorChooser;
-    public JFrame frame;
-    public JPanel colorPanel;
+    public JColorChooser colorChooserEventAdder;
+    public JFrame frameEventAdder;
+    public JPanel colorPanelEventAdder;
 
+
+    public Color colorEventAdder;
+    public int rgbEventAdder;
     public int day, month, year;
-    public Color color;
-    public int rgb;
 
     DataSavingAbstract CSVWriter;
     ArrayList<CalendarEvent> cEvent;
@@ -38,20 +37,20 @@ public class EventAdder implements PopupAdapter{
         this.year = 0;
         this.cEvent = new ArrayList<>();
 
-        event = new JTextField("Enter event", JLabel.BOTTOM);
-        event.setOpaque(true);
-        event.setFont(new Font("SansSerif", Font.PLAIN, 12));
-        event.setBounds(10, 20, 550, 30);
+        JTextFieldEventAdder = new JTextField("Enter JTextFieldEventAdder", JLabel.BOTTOM);
+        JTextFieldEventAdder.setOpaque(true);
+        JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
+        JTextFieldEventAdder.setBounds(10, 20, 550, 30);
 
-        ok = new JButton("Ok");
-        ok.setVisible(true);
-        ok.addActionListener(new ActionListener() {
+        okEventAdderButton = new JButton("Ok");
+        okEventAdderButton.setVisible(true);
+        okEventAdderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                System.out.println(event.getText());
-                frame.setVisible(false);
+                System.out.println(JTextFieldEventAdder.getText());
+                frameEventAdder.setVisible(false);
                 //System.out.println("BEFORE: " + day + '/' + month + '/' + year);
-                cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
+                cEvent.add(new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder));
                 for (int i =0; i<cEvent.size(); i++)
                     System.out.println ("Apple: " + cEvent.get(i).getHoliday());
                 //System.out.println (cEvent.get(0).getDay());
@@ -71,48 +70,48 @@ public class EventAdder implements PopupAdapter{
                 //System.out.println("Event: " + day + '/' + month + '/' + year);
             }
         });
-        ok.setBounds(50, 400, 80, 30);
+        okEventAdderButton.setBounds(50, 400, 80, 30);
 
-        cancel = new JButton("Cancel");
-        cancel.setVisible(true);
-        cancel.addActionListener(new ActionListener() {
+        cancelEventAdderButton = new JButton("Cancel");
+        cancelEventAdderButton.setVisible(true);
+        cancelEventAdderButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setVisible(false);
+                frameEventAdder.setVisible(false);
             }
         });
-        cancel.setBounds(150, 400, 80, 30);
+        cancelEventAdderButton.setBounds(150, 400, 80, 30);
 
-        colorChooser = new JColorChooser(Color.BLACK);
-        colorChooser.setBounds(10, 65, 550, 300);
-        colorChooser.setBorder(null);
-        colorChooser.getSelectionModel().addChangeListener(new ColorSelection());
+        colorChooserEventAdder = new JColorChooser(Color.BLACK);
+        colorChooserEventAdder.setBounds(10, 65, 550, 300);
+        colorChooserEventAdder.setBorder(null);
+        colorChooserEventAdder.getSelectionModel().addChangeListener(new ColorSelection());
 
-        colorPanel = new JPanel (null);
-        colorPanel.setBorder(BorderFactory.createTitledBorder("Color"));
-        colorPanel.setPreferredSize(new Dimension(605, 765));
+        colorPanelEventAdder = new JPanel (null);
+        colorPanelEventAdder.setBorder(BorderFactory.createTitledBorder("Color"));
+        colorPanelEventAdder.setPreferredSize(new Dimension(605, 765));
 
-        scrollPane = new JScrollPane(colorPanel);
-        /*scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);*/
-        scrollPane.setBounds(0, 0, 605, 465);
+        eventAdderScrollPane = new JScrollPane(colorPanelEventAdder);
+        /*eventAdderScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        eventAdderScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);*/
+        eventAdderScrollPane.setBounds(0, 0, 605, 465);
 
-        frame = new JFrame ("Color");
-        frame.setSize(620, 500);
-        frame.setLayout(null);
+        frameEventAdder = new JFrame ("Color");
+        frameEventAdder.setSize(620, 500);
+        frameEventAdder.setLayout(null);
 
-        frame.add(scrollPane, BorderLayout.CENTER);
+        frameEventAdder.add(eventAdderScrollPane, BorderLayout.CENTER);
 
-        colorPanel.add(colorChooser);
-        colorPanel.add(event);
-        colorPanel.add(ok);
-        colorPanel.add(cancel);
+        colorPanelEventAdder.add(colorChooserEventAdder);
+        colorPanelEventAdder.add(JTextFieldEventAdder);
+        colorPanelEventAdder.add(okEventAdderButton);
+        colorPanelEventAdder.add(cancelEventAdderButton);
     }
 
     public void open() {
-        colorChooser.setVisible(true);
-        frame.setVisible(true);
-        colorPanel.setVisible(true);
+        colorChooserEventAdder.setVisible(true);
+        frameEventAdder.setVisible(true);
+        colorPanelEventAdder.setVisible(true);
     }
 
     public int getDay (){ return day; }
@@ -171,10 +170,10 @@ public class EventAdder implements PopupAdapter{
     class ColorSelection implements ChangeListener {
         public void stateChanged(ChangeEvent e) {
             //System.out.println ("IN");
-            color = colorChooser.getColor();
-            rgb = color.getRGB();
-            //System.out.println (color + ": " + rgb);
-            event.setForeground(color);
+            colorEventAdder = colorChooserEventAdder.getColor();
+            rgbEventAdder = colorEventAdder.getRGB();
+            //System.out.println (colorEventAdder + ": " + rgbEventAdder);
+            JTextFieldEventAdder.setForeground(colorEventAdder);
         }
     }
 

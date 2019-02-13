@@ -100,10 +100,10 @@ public class EventList implements PopupAdapter {
         for (int i =0; i<events.size(); i++)
             System.out.println ("koko: " + i + " - " + events.get(i).getHoliday());
         ArrayList<String> eventName = new ArrayList<>();
-        //ArrayList<Color> color = new ArrayList<>();
+        //ArrayList<Color> colorEventAdder = new ArrayList<>();
         for (CalendarEvent e: events) {
             eventName.add(e.getHoliday());
-            //color.add(e.getColor());
+            //colorEventAdder.add(e.getColor());
         }
 
         eventList.setListData(eventName.toArray());

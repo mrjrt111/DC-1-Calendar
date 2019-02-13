@@ -10,6 +10,8 @@ package designchallenge1;
  */
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -49,6 +51,20 @@ public class CalendarProgram{
 	public Container eventListPane;
 	public JPanel eventPanel;
 	PopupAdapter popupAdapter;
+
+	/**Event Adder**/
+	public JScrollPane eventAdderScrollPane;
+
+	public JTextField JTextFieldEventAdder;
+	public JButton okEventAdderButton, cancelEventAdderButton;
+
+	public JColorChooser colorChooserEventAdder;
+	public JFrame frameEventAdder;
+	public JPanel colorPanelEventAdder;
+
+
+	public Color colorEventAdder;
+	public int rgbEventAdder;
 
 
 	/** Method used to change month and year**/
@@ -209,7 +225,7 @@ public class CalendarProgram{
 		hasConstructed = true;
 
 		/*CHANGE*/
-		Popup = new EventAdder();
+		//Popup = new EventAdder();
 		//Popup2 = new EventList();
 		/*CHANGE*/
 
@@ -228,20 +244,21 @@ public class CalendarProgram{
 				String day = days[0];
 				//System.out.println("VAL OF day: "+ day);
 				//((EventAdder)EventAdder).setDay((int)modelCalendarTable.getValueAt(row, col));
-				((EventAdder)Popup).setDay(Integer.valueOf(day));
-				((EventAdder)Popup).setMonth(monthLabel.getText());
+			//	((EventAdder)Popup).setDay(Integer.valueOf(day));
+			//	((EventAdder)Popup).setMonth(monthLabel.getText());
 				//((EventAdder)EventAdder).setYear(yearBound);
 
 
 				//Popup2.open();
-				showEventList(dayBound, monthBound, yearBound);
+				showEventList(Integer.valueOf(day), monthBound, yearBound);
 				EventToCalendar sort = new EventToCalendar(events);
-				events = sort.eventsInMonth(((EventAdder)Popup).getMonth(), yearBound);
+				//events = sort.eventsInMonth(((EventAdder)Popup).getMonth(), yearBound);
+				events = sort.eventsInMonth(monthBound, yearBound);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
 				for (int i = 0; i<events.size(); i++)
-					if (((EventAdder)Popup).getDay() == events.get(i).getDay()) {
-						//System.out.println ("event: " + events.get(i).getDay());
+					if (Integer.valueOf(day) == events.get(i).getDay()) {
+						//System.out.println ("JTextFieldEventAdder: " + events.get(i).getDay());
 						same.add(events.get(i));
 					}
 
@@ -252,7 +269,7 @@ public class CalendarProgram{
 				//((EventList) Popup2).setDate(monthToday+1, Integer.valueOf(day), yearToday);
 				//((EventList)Popup2).setEvents(same);
 				//System.out.println("same " + same.size());
-				eventPanel.setBorder(BorderFactory.createTitledBorder(Integer.toString(monthToday+1)+"/"+day+"/"+yearToday));
+				eventPanel.setBorder(BorderFactory.createTitledBorder(Integer.toString(monthBound+1)+"/"+Integer.valueOf(day)+"/"+yearToday));
 				setEvents(same);
 
 
@@ -360,12 +377,13 @@ public class CalendarProgram{
 		Add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				popupAdapter = new EventAdder();
-				popupAdapter.open();
+				//popupAdapter = new EventAdder();
+				//popupAdapter.open();
 
-				((EventAdder) popupAdapter).setDay(day);
-				((EventAdder) popupAdapter).setNumMonth(month-1);
-				((EventAdder) popupAdapter).setYear(year);
+				//((EventAdder) popupAdapter).setDay(day);
+				//((EventAdder) popupAdapter).setNumMonth(month-1);
+				//((EventAdder) popupAdapter).setYear(year);
+				showEventAdder(day, month, year);
 			}
 		});
 		Add.setBounds(50, 450, 80, 20);
@@ -375,10 +393,10 @@ public class CalendarProgram{
 		Ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("O");
+				//System.out.println("O");
 				//System.out.println ("EVENTSIZE: " + ((EventAdder)popupAdapter).getEvents().size());
-				if (((EventAdder) popupAdapter).getEvents() != null) {
-					System.out.println ("Not null");
+				//if (((EventAdder) popupAdapter).getEvents() != null) {
+				//	System.out.println ("Not null");
                     /*if (!((EventAdder)popupAdapter).getEvents().isEmpty()) {
                         System.out.print("not Empty");
                         /*events.addAll(((EventAdder) popupAdapter).getEvents());
@@ -387,10 +405,10 @@ public class CalendarProgram{
                         setEvents(events);*/
 					//}
 					//System.out.print("Empty");
-				}
-				System.out.println ("null");
-
+				//}
+				//System.out.println ("null");
 				eventListFrame.setVisible(false);
+				refreshCalendar(month, year);
 			}
 		});
 		Ok.setBounds(150, 450, 80, 20);
@@ -418,15 +436,16 @@ public class CalendarProgram{
 		int monthDisplay = monthBound+1;
 	}
 
+
 	public void setEvents (ArrayList<CalendarEvent> events)
 	{
 		for (int i =0; i<events.size(); i++)
 			System.out.println ("koko: " + i + " - " + events.get(i).getHoliday());
 		ArrayList<String> eventName = new ArrayList<>();
-		//ArrayList<Color> color = new ArrayList<>();
+		//ArrayList<Color> colorEventAdder = new ArrayList<>();
 		for (CalendarEvent e: events) {
 			eventName.add(e.getHoliday());
-			//color.add(e.getColor());
+			//colorEventAdder.add(e.getColor());
 		}
 
 		eventList.setListData(eventName.toArray());
@@ -445,8 +464,99 @@ public class CalendarProgram{
 		}
 	}
 
+	public void showEventAdder (int day, int month, int year)
+	{
+		JTextFieldEventAdder = new JTextField("Enter JTextFieldEventAdder", JLabel.BOTTOM);
+		JTextFieldEventAdder.setOpaque(true);
+		JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
+		JTextFieldEventAdder.setBounds(10, 20, 550, 30);
 
+		okEventAdderButton = new JButton("Ok");
+		okEventAdderButton.setVisible(true);
+		okEventAdderButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				System.out.println(JTextFieldEventAdder.getText());
+				frameEventAdder.setVisible(false);
+				//System.out.println("BEFORE: " + day + '/' + month + '/' + year);
+				//cEvent.add(new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder));
+				System.out.println(events.size());
+				events.add (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder));
+				System.out.println(month+"/"+day+"/"+year);
+				//for (int i =0; i<cEvent.size(); i++)
+				//	System.out.println ("Apple: " + cEvent.get(i).getHoliday());
+				//System.out.println (cEvent.get(0).getDay());
 
+                /*CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
+                try {
+                    CSVWriter.saveData();
+                    System.out.println (cEvent.get(0).getDay());
+                } catch (IOException e1) { e1.printStackTrace(); }
+
+                SMS = new SmsController();
+                FB = new FbController();
+
+                SMS.update(cEvent);
+                FB.update(cEvent);*/
+
+				//System.out.println("Event: " + day + '/' + month + '/' + year);
+				eventListFrame.setVisible(false);
+				refreshCalendar(month, year);
+			}
+		});
+		okEventAdderButton.setBounds(50, 400, 80, 30);
+
+		cancelEventAdderButton = new JButton("Cancel");
+		cancelEventAdderButton.setVisible(true);
+		cancelEventAdderButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				frameEventAdder.setVisible(false);
+				eventListFrame.setVisible(false);
+
+			}
+		});
+		cancelEventAdderButton.setBounds(150, 400, 80, 30);
+
+		colorChooserEventAdder = new JColorChooser(Color.BLACK);
+		colorChooserEventAdder.setBounds(10, 65, 550, 300);
+		colorChooserEventAdder.setBorder(null);
+		colorChooserEventAdder.getSelectionModel().addChangeListener(new CalendarProgram.ColorSelection());
+
+		colorPanelEventAdder = new JPanel (null);
+		colorPanelEventAdder.setBorder(BorderFactory.createTitledBorder("Color"));
+		colorPanelEventAdder.setPreferredSize(new Dimension(605, 765));
+
+		eventAdderScrollPane = new JScrollPane(colorPanelEventAdder);
+        /*eventAdderScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        eventAdderScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);*/
+		eventAdderScrollPane.setBounds(0, 0, 605, 465);
+
+		frameEventAdder = new JFrame ("Color");
+		frameEventAdder.setSize(620, 500);
+		frameEventAdder.setLayout(null);
+
+		frameEventAdder.add(eventAdderScrollPane, BorderLayout.CENTER);
+
+		colorPanelEventAdder.add(colorChooserEventAdder);
+		colorPanelEventAdder.add(JTextFieldEventAdder);
+		colorPanelEventAdder.add(okEventAdderButton);
+		colorPanelEventAdder.add(cancelEventAdderButton);
+
+		colorChooserEventAdder.setVisible(true);
+		frameEventAdder.setVisible(true);
+		colorPanelEventAdder.setVisible(true);
+	}
+
+	class ColorSelection implements ChangeListener {
+		public void stateChanged(ChangeEvent e) {
+			//System.out.println ("IN");
+			colorEventAdder = colorChooserEventAdder.getColor();
+			rgbEventAdder = colorEventAdder.getRGB();
+			//System.out.println (colorEventAdder + ": " + rgbEventAdder);
+			JTextFieldEventAdder.setForeground(colorEventAdder);
+		}
+	}
 }
 
 
