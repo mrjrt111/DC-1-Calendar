@@ -36,10 +36,8 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
                 int month = content.get(i).getMonth() +1;
 
                 bufferedWriter.write(month + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+","+
-                        content.get(i).getHoliday() + ","+content.get(i).getColor().getRGB()+ "\n");
-
-
-
+                        content.get(i).getHoliday() + ","+content.get(i).getColor().getRGB());
+                bufferedWriter.newLine();
 
                 System.out.println(content.get(i).getMonth() + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+", "+
                         content.get(i).getHoliday() + ", "+content.get(i).getColor().getRGB()+ "\n");

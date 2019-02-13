@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class EventList implements PopupAdapter {
     public JScrollPane scrollPane;
 
-    public JButton Add, Edit;
+    public JButton Add, Ok;
     public JList eventList;
 
     public JColorChooser colorChooser;
@@ -49,15 +49,23 @@ public class EventList implements PopupAdapter {
         });
         Add.setBounds(50, 450, 80, 20);
 
-        Edit = new JButton("Delete");
-        Edit.setVisible(true);
-        Edit.addActionListener(new ActionListener() {
+        Ok = new JButton("Ok");
+        Ok.setVisible(true);
+        Ok.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                System.out.println ("EVENTSIZE: " + ((EventAdder)Popup).getEvents().size());
+                if (((EventAdder)Popup).getEvents().size() > 0) {
+                    events.addAll(((EventAdder)Popup).getEvents());
+                    for (int i =0; i<events.size(); i++)
+                        System.out.println ("kaka: " + i + " - " + events.get(i).getHoliday());
+                    setEvents(events);
+                }
+
                 frame.setVisible(false);
             }
         });
-        Edit.setBounds(150, 450, 80, 20);
+        Ok.setBounds(150, 450, 80, 20);
 
 
         frame = new JFrame("Events");
@@ -73,7 +81,7 @@ public class EventList implements PopupAdapter {
         pane.add(eventPanel);
         eventPanel.add(scrollPane);
         eventPanel.add(Add);
-        eventPanel.add(Edit);
+        eventPanel.add(Ok);
     }
 
     public void open() {
@@ -84,6 +92,8 @@ public class EventList implements PopupAdapter {
 
     public void setEvents (ArrayList<CalendarEvent> events) {
         this.events = events;
+        for (int i =0; i<events.size(); i++)
+            System.out.println ("koko: " + i + " - " + events.get(i).getHoliday());
         ArrayList<String> eventName = new ArrayList<>();
         for (CalendarEvent e: events)
             eventName.add(e.getHoliday());
@@ -93,6 +103,14 @@ public class EventList implements PopupAdapter {
         //for (int i = 0; i < events.size(); i++)
         //    System.out.println ("HOI: " + events.get(i).getHoliday());
     };
+
+    public ArrayList<CalendarEvent> getEvent() {
+        System.out.println ("in");
+        System.out.println(events.size());
+        for (int i =0; i<events.size(); i++)
+            System.out.println ("kiki: " + i + " - " + events.get(i).getHoliday());
+        return events;
+    }
 
     public void setDate (int month, int day, int year)
     {

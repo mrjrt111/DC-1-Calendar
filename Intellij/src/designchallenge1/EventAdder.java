@@ -6,6 +6,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.io.IOException;
 import java.util.ArrayList;
 /*POOP*/
@@ -25,7 +26,9 @@ public class EventAdder implements PopupAdapter{
     public int rgb;
 
     DataSavingAbstract CSVWriter;
-    ArrayList<CalendarEvent> cEvent = new ArrayList<>();
+    ArrayList<CalendarEvent> cEvent;
+    //ArrayList<CalendarEvent> cEvent = new ArrayList<>();
+
     SmsController SMS;
     FbController FB;
 
@@ -33,6 +36,7 @@ public class EventAdder implements PopupAdapter{
         this.day = 0;
         this.month = 0;
         this.year = 0;
+        this.cEvent = new ArrayList<>();
 
         event = new JTextField("Enter event", JLabel.BOTTOM);
         event.setOpaque(true);
@@ -48,9 +52,11 @@ public class EventAdder implements PopupAdapter{
                 frame.setVisible(false);
                 //System.out.println("BEFORE: " + day + '/' + month + '/' + year);
                 cEvent.add(new CalendarEvent(month, day, year, event.getText(), color));
-                System.out.println (cEvent.get(0).getDay());
+                for (int i =0; i<cEvent.size(); i++)
+                    System.out.println ("Apple: " + cEvent.get(i).getHoliday());
+                //System.out.println (cEvent.get(0).getDay());
 
-                CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
+                /*CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
                 try {
                     CSVWriter.saveData();
                     System.out.println (cEvent.get(0).getDay());
@@ -60,7 +66,7 @@ public class EventAdder implements PopupAdapter{
                 FB = new FbController();
 
                 SMS.update(cEvent);
-                FB.update(cEvent);
+                FB.update(cEvent);*/
 
                 //System.out.println("Event: " + day + '/' + month + '/' + year);
             }
@@ -153,6 +159,13 @@ public class EventAdder implements PopupAdapter{
 
     public void setYear (int year) {
         this.year = year;
+    }
+
+    public ArrayList<CalendarEvent> getEvents () {
+        System.out.println(cEvent.size());
+        for (int i =0; i<cEvent.size(); i++)
+            System.out.println ("Banana: " + cEvent.get(i).getHoliday());
+        return cEvent;
     }
 
     class ColorSelection implements ChangeListener {
