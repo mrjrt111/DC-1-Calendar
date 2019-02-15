@@ -103,7 +103,11 @@ public class CalendarProgram{
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		System.out.println("Refreshed\nMonth" + month + "\nYear"+ year);
 		if (hasConstructed)
+		{
 			insertEventNumber(month, year);
+		}
+
+
 
 	}
 
@@ -201,8 +205,6 @@ public class CalendarProgram{
 
 
 		try {
-
-
 			ParserAbstract csvReader = new CsvReader("Sample Files/Philippine Holidays.csv");
 			ParserAbstract psvReader = new psvReader("Sample Files/DLSU Unicalendar.psv");
 
@@ -222,9 +224,7 @@ public class CalendarProgram{
 		}
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
 		insertEventNumber(monthBound, yearBound);
-		DayChecker dayChecker = new DayChecker(loadedEvents);
-		//System.out.println("sIZE" + loadedEvents.size());
-		dayChecker.checkEvents();
+
 		hasConstructed = true;
 
 		calendarTable.addMouseListener(new MouseAdapter()
@@ -268,6 +268,9 @@ public class CalendarProgram{
 				System.exit(0);
 			}
 		});
+
+		DayChecker dayChecker = new DayChecker(loadedEvents);
+		dayChecker.checkEvents();
 	}
 
 
@@ -359,12 +362,6 @@ public class CalendarProgram{
 		Add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//popupAdapter = new EventAdder();
-				//popupAdapter.open();
-
-				//((EventAdder) popupAdapter).setDay(day);
-				//((EventAdder) popupAdapter).setNumMonth(month-1);
-				//((EventAdder) popupAdapter).setYear(year);
 				showEventAdder(day, month, year);
 			}
 		});
@@ -434,7 +431,7 @@ public class CalendarProgram{
 
 	public void showEventAdder (int day, int month, int year)
 	{
-		JTextFieldEventAdder = new JTextField("Enter JTextFieldEventAdder", JLabel.BOTTOM);
+		JTextFieldEventAdder = new JTextField("Enter Event", JLabel.BOTTOM);
 		JTextFieldEventAdder.setOpaque(true);
 		JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JTextFieldEventAdder.setBounds(10, 20, 550, 30);
@@ -453,6 +450,8 @@ public class CalendarProgram{
 				System.out.println(month+"/"+day+"/"+year);
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
+				DayChecker dayChecker = new DayChecker(loadedEvents);
+				dayChecker.checkEvents();
 			}
 		});
 		okEventAdderButton.setBounds(50, 400, 80, 30);
