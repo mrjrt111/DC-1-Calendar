@@ -15,16 +15,24 @@ public class MDYEventColor {
 
     public ArrayList<CalendarEvent> toMDYEventColor()
     {
-        String [] temp;
+        String [] dateTemp;
+        boolean isYearly;
 
         ArrayList <CalendarEvent> events = new ArrayList<>();
-        for (int i = 0; i<content.size(); i+=3)
+        for (int i = 0; i<content.size(); i+=4)
         {
-            System.out.println(content.get(i));
-            temp = content.get(i).split("/");
+           // System.out.println(content.get(i));
+            dateTemp = content.get(i).split("/");
 
-            events.add(new CalendarEvent(Integer.valueOf(temp[0])-1,Integer.valueOf(temp[1]), Integer.valueOf(temp[2]),
-                    content.get(i+1),new Color (Integer.valueOf(content.get(i+2)))));
+            if (content.get(i+3).toLowerCase().equals("yes"))
+                isYearly = true;
+            else
+                isYearly = false;
+
+
+
+            events.add(new CalendarEvent(Integer.valueOf(dateTemp[0])-1,Integer.valueOf(dateTemp[1]), Integer.valueOf(dateTemp[2]),
+                    content.get(i+1),new Color (Integer.valueOf(content.get(i+2))), isYearly));
 
         }
 

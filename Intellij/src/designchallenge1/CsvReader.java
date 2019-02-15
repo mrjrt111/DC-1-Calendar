@@ -53,7 +53,7 @@ public class CsvReader extends ParserAbstract
 
             for (i = 0; i<size; i++) {
                 content.add(fEntry[i]);
-                System.out.println (content.get(i));
+                //System.out.println (content.get(i));
             }
         }
         bReader.close();

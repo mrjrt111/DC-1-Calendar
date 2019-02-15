@@ -14,13 +14,24 @@ public class CalendarEvent
     private String holiday;
     private Color color;
 
-    public CalendarEvent(int month, int day, int year, String holiday, Color color)
+    public boolean getisYearly() {
+        return isYearly;
+    }
+
+    public void setisYearly(boolean yearly) {
+        isYearly = yearly;
+    }
+
+    private boolean isYearly;
+
+    public CalendarEvent(int month, int day, int year, String holiday, Color color, boolean isYearly)
     {
         this.month = month;
         this.day = day;
         this.year = year;
         this.holiday = holiday;
         this.color = color;
+        this.isYearly = isYearly;
     }
 
     public int getMonth() {

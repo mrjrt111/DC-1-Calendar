@@ -31,8 +31,9 @@ public class psvReader  extends ParserAbstract
 
         String[] fEntry = bReader.readLine().split("\\|"); //gets the first entry and splits it
         size = fEntry.length; //gets the number of entry in the first line
-        for (String word: fEntry)
-            System.out.println(word);
+        //System.out.println("size: "+size);
+        //for (String word: fEntry)
+           // System.out.println(word);
         String temp;
 
         for (i = 0; i < size; i++) //loop adds the first entry's content to the arraylist

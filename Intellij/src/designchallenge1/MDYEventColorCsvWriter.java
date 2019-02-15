@@ -24,10 +24,13 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
     @Override
     public void saveData() throws IOException
     {
+
         try
         {
             if (!file.exists())
                 file.createNewFile();
+
+            String isYearlyText;
 
             fileWriter = new FileWriter(file);
             bufferedWriter = new BufferedWriter(fileWriter);
@@ -35,12 +38,20 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
             {
                 int month = content.get(i).getMonth() +1;
 
+                if (content.get(i).getisYearly())
+                    isYearlyText = "yes";
+                else
+                    isYearlyText = "no";
+
+
                 bufferedWriter.write(month + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+","+
-                        content.get(i).getHoliday() + ","+content.get(i).getColor().getRGB());
+                        content.get(i).getHoliday() + ","+content.get(i).getColor().getRGB()+","+isYearlyText);
                 bufferedWriter.newLine();
 
+
+
                 System.out.println(content.get(i).getMonth() + "/"+ content.get(i).getDay()+ "/"+content.get(i).getYear()+", "+
-                        content.get(i).getHoliday() + ", "+content.get(i).getColor().getRGB()+ "\n");
+                        content.get(i).getHoliday() + ", "+content.get(i).getColor().getRGB()+ ","+isYearlyText+"\n");
             }
         }
         catch (IOException ioe){ioe.printStackTrace();}
