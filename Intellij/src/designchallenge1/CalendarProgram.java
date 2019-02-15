@@ -381,7 +381,6 @@ public class CalendarProgram{
 		eventList = new JList (events.toArray());
 		eventList.setVisible(true);
 		eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		//eventList.setBounds(15, 25, 260, 400);
 		eventList.setPreferredSize(new Dimension (260, 400));
 
 		scrollPane = new JScrollPane(eventList);
@@ -392,12 +391,6 @@ public class CalendarProgram{
 		Add.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//popupAdapter = new EventAdder();
-				//popupAdapter.open();
-
-				//((EventAdder) popupAdapter).setDay(day);
-				//((EventAdder) popupAdapter).setNumMonth(month-1);
-				//((EventAdder) popupAdapter).setYear(year);
 				showEventAdder(day, month, year);
 			}
 		});
@@ -408,20 +401,6 @@ public class CalendarProgram{
 		Ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//System.out.println("O");
-				//System.out.println ("EVENTSIZE: " + ((EventAdder)popupAdapter).getEvents().size());
-				//if (((EventAdder) popupAdapter).getEvents() != null) {
-				//	System.out.println ("Not null");
-                    /*if (!((EventAdder)popupAdapter).getEvents().isEmpty()) {
-                        System.out.print("not Empty");
-                        /*events.addAll(((EventAdder) popupAdapter).getEvents());
-                        for (int i = 0; i < events.size(); i++)
-                            System.out.println("kaka: " + i + " - " + events.get(i).getHoliday());
-                        setEvents(events);*/
-					//}
-					//System.out.print("Empty");
-				//}
-				//System.out.println ("null");
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
 			}
@@ -457,10 +436,9 @@ public class CalendarProgram{
 		for (int i =0; i<events.size(); i++)
 			System.out.println ("koko: " + i + " - " + events.get(i).getHoliday());
 		ArrayList<String> eventName = new ArrayList<>();
-		//ArrayList<Color> colorEventAdder = new ArrayList<>();
+
 		for (CalendarEvent e: events) {
 			eventName.add(e.getHoliday());
-			//colorEventAdder.add(e.getColor());
 		}
 
 		eventList.setListData(eventName.toArray());
@@ -481,7 +459,7 @@ public class CalendarProgram{
 
 	public void showEventAdder (int day, int month, int year)
 	{
-		JTextFieldEventAdder = new JTextField("Enter JTextFieldEventAdder", JLabel.BOTTOM);
+		JTextFieldEventAdder = new JTextField("Enter Event", JLabel.BOTTOM);
 		JTextFieldEventAdder.setOpaque(true);
 		JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JTextFieldEventAdder.setBounds(10, 20, 550, 30);
@@ -493,28 +471,11 @@ public class CalendarProgram{
 			public void actionPerformed(ActionEvent e) {
 				System.out.println(JTextFieldEventAdder.getText());
 				frameEventAdder.setVisible(false);
-				//System.out.println("BEFORE: " + day + '/' + month + '/' + year);
-				//cEvent.add(new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder));
+
 				System.out.println(events.size());
 				events.add (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder));
 				System.out.println(month+"/"+day+"/"+year);
-				//for (int i =0; i<cEvent.size(); i++)
-				//	System.out.println ("Apple: " + cEvent.get(i).getHoliday());
-				//System.out.println (cEvent.get(0).getDay());
 
-                /*CSVWriter = new MDYEventColorCsvWriter("Events Supreme.csv", cEvent);
-                try {
-                    CSVWriter.saveData();
-                    System.out.println (cEvent.get(0).getDay());
-                } catch (IOException e1) { e1.printStackTrace(); }
-
-                SMS = new SmsController();
-                FB = new FbController();
-
-                SMS.update(cEvent);
-                FB.update(cEvent);*/
-
-				//System.out.println("Event: " + day + '/' + month + '/' + year);
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
 			}
@@ -543,8 +504,6 @@ public class CalendarProgram{
 		colorPanelEventAdder.setPreferredSize(new Dimension(605, 765));
 
 		eventAdderScrollPane = new JScrollPane(colorPanelEventAdder);
-        /*eventAdderScrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
-        eventAdderScrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);*/
 		eventAdderScrollPane.setBounds(0, 0, 605, 465);
 
 		frameEventAdder = new JFrame ("Color");
@@ -564,11 +523,9 @@ public class CalendarProgram{
 	}
 
 	class ColorSelection implements ChangeListener {
-		public void stateChanged(ChangeEvent e) {
-			//System.out.println ("IN");
+		public void stateChanged(ChangeEvent e) { ;
 			colorEventAdder = colorChooserEventAdder.getColor();
 			rgbEventAdder = colorEventAdder.getRGB();
-			//System.out.println (colorEventAdder + ": " + rgbEventAdder);
 			JTextFieldEventAdder.setForeground(colorEventAdder);
 		}
 	}
