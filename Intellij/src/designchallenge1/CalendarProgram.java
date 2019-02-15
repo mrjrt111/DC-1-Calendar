@@ -103,10 +103,7 @@ public class CalendarProgram{
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		System.out.println("Refreshed\nMonth" + month + "\nYear"+ year);
 		if (hasConstructed)
-		{
 			insertEventNumber(month, year);
-		}
-
 
 
 	}
