@@ -50,7 +50,6 @@ public class CalendarProgram{
 	public JFrame eventListFrame;
 	public Container eventListPane;
 	public JPanel eventPanel;
-	PopupAdapter popupAdapter;
 
 	/**Event Adder**/
 	public JScrollPane eventAdderScrollPane;
@@ -343,7 +342,7 @@ public class CalendarProgram{
 	}
 
 
-	public void showEventList (int day, int month, int year)
+	private void showEventList (int day, int month, int year)
 	{
 		eventList = new JList (loadedEvents.toArray());
 		eventList.setVisible(true);
@@ -399,7 +398,7 @@ public class CalendarProgram{
 	}
 
 
-	public void setEvents(ArrayList<CalendarEvent> loadedEvents)
+	private void setEvents(ArrayList<CalendarEvent> loadedEvents)
 	{
 		for (int i = 0; i< loadedEvents.size(); i++)
 			System.out.println ("koko: " + i + " - " + loadedEvents.get(i).getHoliday());
@@ -411,9 +410,9 @@ public class CalendarProgram{
 		}
 
 		eventList.setListData(eventName.toArray());
-		eventList.setCellRenderer(new CalendarProgram.ListRender());
+		eventList.setCellRenderer(new CalendarProgram.ListRenderer());
 	}
-	class ListRender extends DefaultListCellRenderer
+	class ListRenderer extends DefaultListCellRenderer
 	{
 		public Component getListCellRendererComponent (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 		{
@@ -426,7 +425,7 @@ public class CalendarProgram{
 		}
 	}
 
-	public void showEventAdder (int day, int month, int year)
+	private void showEventAdder (int day, int month, int year)
 	{
 		JTextFieldEventAdder = new JTextField("Enter Event", JLabel.BOTTOM);
 		JTextFieldEventAdder.setOpaque(true);
