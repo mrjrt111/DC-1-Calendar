@@ -2,7 +2,7 @@ package designchallenge1;
 
 import java.awt.*;
 /*
-    This class handles the events on the calendar.
+    This class handles the loadedEvents on the calendar.
     This contains month, day, year in integer
     Color is stored as a Color Class
  */

@@ -58,10 +58,10 @@ public class EventList implements PopupAdapter {
                     System.out.println ("Not null");
                     /*if (!((EventAdder)popupAdapter).getEvents().isEmpty()) {
                         System.out.print("not Empty");
-                        /*events.addAll(((EventAdder) popupAdapter).getEvents());
-                        for (int i = 0; i < events.size(); i++)
-                            System.out.println("kaka: " + i + " - " + events.get(i).getHoliday());
-                        setEvents(events);*/
+                        /*loadedEvents.addAll(((EventAdder) popupAdapter).getEvents());
+                        for (int i = 0; i < loadedEvents.size(); i++)
+                            System.out.println("kaka: " + i + " - " + loadedEvents.get(i).getHoliday());
+                        setEvents(loadedEvents);*/
                     //}
                     //System.out.print("Empty");
                 }
@@ -110,8 +110,8 @@ public class EventList implements PopupAdapter {
         eventList.setCellRenderer(new ListRender());
         //eventList.setCellRenderer(new MyListCellThing());
 
-        //for (int i = 0; i < events.size(); i++)
-        //    System.out.println ("HOI: " + events.get(i).getHoliday());
+        //for (int i = 0; i < loadedEvents.size(); i++)
+        //    System.out.println ("HOI: " + loadedEvents.get(i).getHoliday());
     };
 
     public ArrayList<CalendarEvent> getEvent() {
