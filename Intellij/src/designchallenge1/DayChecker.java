@@ -12,6 +12,7 @@ public class DayChecker
     public DayChecker(ArrayList<CalendarEvent> events)
     {
         this.events = events;
+        checkEvents();
     }
 
     public void checkEvents ()

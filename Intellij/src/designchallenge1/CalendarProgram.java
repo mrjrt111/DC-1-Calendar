@@ -37,16 +37,14 @@ public class CalendarProgram{
 	public DefaultTableModel modelCalendarTable;
 
 	/**NEW ATTRIBUTES**/
-	ArrayList<CalendarEvent> loadedEvents;
-	ArrayList <CalendarEvent> createdEvents;
-	ArrayList<CalendarEvent> events;
+	EventsHandler eventsHandler;
 
 	boolean hasConstructed;
 
 	/** Event List **/
 	public JScrollPane scrollPane;
-	public JButton Add, Ok;
-	public JList eventList;
+	public JButton addEventListButton, doneEventListButton, deleteEventListButton ;
+	public JList eventJList;
 	public JColorChooser colorChooser;
 	public JFrame eventListFrame;
 	public Container eventListPane;
@@ -103,10 +101,8 @@ public class CalendarProgram{
 		calendarTable.setDefaultRenderer(calendarTable.getColumnClass(0), new TableRenderer());
 		if (hasConstructed)
 		{
-			ArrayList <CalendarEvent> events = new ArrayList<>();
-			events.addAll(loadedEvents);
-			events.addAll(createdEvents);
-			insertEventNumber(month, year,events);
+
+			insertEventNumber(month, year,eventsHandler.getEventsThisMonth(month,year));
 		}
 	}
 	public CalendarProgram()
@@ -200,31 +196,10 @@ public class CalendarProgram{
 			cmbYear.addItem(String.valueOf(i));
 		}
 
-		try {
-			ParserAbstract csvReader = new CsvReader("Sample Files/UserEvent.csv");
-			ParserAbstract psvReader = new psvReader("Sample Files/Holiday.psv");
-
-
-			InterpreterAdapter adapter = new InterpreterAdapter(((psvReader)psvReader).getContent());
-				this.loadedEvents = adapter.dataToCalendarEvents();
-			InterpreterAdapter adapter2 = new InterpreterAdapter(((CsvReader)csvReader).getContent());
-				this.createdEvents = adapter2.dataToCalendarEvents();
-
-				events = new ArrayList<>();
-				this.events.addAll(this.loadedEvents);
-				this.events.addAll(this.createdEvents);
-
-				System.out.println("load: "+ loadedEvents.size()+"\ncreate: "+createdEvents.size()+"\nevents: "+events.size());
-
-			//loadedEvents.addAll(adapter.dataToCalendarEvents());
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("Files to be loaded not found");
-		}
+		eventsHandler = new EventsHandler();
 
 		refreshCalendar (monthBound, yearBound); //Refresh calendar
-		insertEventNumber(monthBound, yearBound, events);
+		insertEventNumber(monthBound, yearBound, eventsHandler.getEventsThisMonth(monthBound, yearBound));
 
 		hasConstructed = true;
 
@@ -242,13 +217,11 @@ public class CalendarProgram{
 
 
 				showEventList(Integer.valueOf(day), monthBound, yearBound);
-				EventToCalendar sort = new EventToCalendar(events);
-				events = sort.eventsInMonth(monthBound, yearBound);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
-				for (int i = 0; i< events.size(); i++)
-					if (Integer.valueOf(day) == events.get(i).getDay()) {
-						same.add(events.get(i));
+				for (int i = 0; i< eventsHandler.getEventsThisMonth(monthBound, yearBound).size(); i++)
+					if (Integer.valueOf(day) == eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getDay()) {
+						same.add(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i));
 					}
 
 
@@ -264,7 +237,7 @@ public class CalendarProgram{
 			public void windowClosing (WindowEvent e)
 			{
 				try {
-					new MDYEventColorCsvWriter("Sample Files/UserEvent.csv", createdEvents);
+					new MDYEventColorCsvWriter("Sample Files/UserEvent.csv", eventsHandler.getCreatedEvents());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -272,8 +245,7 @@ public class CalendarProgram{
 			}
 		});
 
-		DayChecker dayChecker = new DayChecker(events);
-		dayChecker.checkEvents();
+		eventsHandler.notifPopup();
 	}
 
 
@@ -325,7 +297,7 @@ public class CalendarProgram{
 	private void insertEventNumber(int month, int year, ArrayList <CalendarEvent> selectedEvents)
 	{
 		int nod, som, eventCounter;
-		EventToCalendar eventToCalendar = new EventToCalendar(selectedEvents);
+		//EventToCalendar eventToCalendar = new EventToCalendar(selectedEvents);
 		GregorianCalendar cal = new GregorianCalendar(year, month, 1);
 		nod = cal.getActualMaximum(GregorianCalendar.DAY_OF_MONTH);
 		som = cal.get(GregorianCalendar.DAY_OF_WEEK);
@@ -334,9 +306,9 @@ public class CalendarProgram{
 			eventCounter = 0;
 			int row = (i+som-2)/7;
 			int column  =  (i+som-2)%7;
-			for (int j = 0; j<eventToCalendar.eventsInMonth(month, year).size(); j++)
+			for (int j = 0; j<eventsHandler.getEventsThisMonth(month,year).size(); j++)
 			{
-				if (i == eventToCalendar.eventsInMonth(month, year).get(j).getDay())
+				if (i == eventsHandler.getEventsThisMonth(month,year).get(j).getDay())
 					eventCounter++;
 			}
 			if (eventCounter>0)
@@ -351,35 +323,57 @@ public class CalendarProgram{
 	private void showEventList (int day, int month, int year)
 	{
 
-		eventList = new JList (events.toArray());
-		eventList.setVisible(true);
-		eventList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		//eventList.setBounds(15, 25, 260, 400);
-		eventList.setPreferredSize(new Dimension (260, 400));
+		eventJList = new JList (eventsHandler.getEventsThisMonth(month, year).toArray());
+		eventJList.setVisible(true);
+		eventJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		//eventJList.setBounds(15, 25, 260, 400);
+		eventJList.setPreferredSize(new Dimension (260, 400));
 
-		scrollPane = new JScrollPane(eventList);
+		scrollPane = new JScrollPane(eventJList);
 		scrollPane.setBounds (15, 25, 260, 400);
 
-		Add = new JButton("Add");
-		Add.setVisible(true);
-		Add.addActionListener(new ActionListener() {
+		addEventListButton = new JButton("Add");
+		addEventListButton.setVisible(true);
+		addEventListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				showEventAdder(day, month, year);
 			}
 		});
-		Add.setBounds(50, 450, 80, 20);
+		addEventListButton.setBounds(10, 450, 80, 20);
 
-		Ok = new JButton("Ok");
-		Ok.setVisible(true);
-		Ok.addActionListener(new ActionListener() {
+		deleteEventListButton = new JButton("Delete");
+		deleteEventListButton.setVisible(true);
+		deleteEventListButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (CalendarEvent event: eventsHandler.getEventsThisMonth(month, year))
+				{
+					if (event.getHoliday().equals(eventJList.getSelectedValue()))
+					{
+						eventsHandler.deleteEvent(event);
+						System.out.println("pass");
+					}
+
+				}
+				System.out.println("Delete "+ eventJList.getSelectedValue());
+				eventListFrame.setVisible(false);
+				refreshCalendar(month, year);
+			}
+		});
+
+		deleteEventListButton.setBounds(100, 450, 80, 20);
+
+		doneEventListButton = new JButton("Done");
+		doneEventListButton.setVisible(true);
+		doneEventListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
 			}
 		});
-		Ok.setBounds(150, 450, 80, 20);
+		doneEventListButton.setBounds(190, 450, 80, 20);
 
 
 		eventListFrame = new JFrame("Events");
@@ -394,12 +388,13 @@ public class CalendarProgram{
 
 		eventListPane.add(eventPanel);
 		eventPanel.add(scrollPane);
-		eventPanel.add(Add);
-		eventPanel.add(Ok);
+		eventPanel.add(addEventListButton);
+		eventPanel.add(doneEventListButton);
+		eventPanel.add(deleteEventListButton);
 
 		eventListFrame.setVisible(true);
 		eventPanel.setVisible(true);
-		eventList.setVisible(true);
+		eventJList.setVisible(true);
 
 		int monthDisplay = monthBound+1;
 	}
@@ -414,8 +409,8 @@ public class CalendarProgram{
 			eventName.add(e.getHoliday());
 		}
 
-		eventList.setListData(eventName.toArray());
-		eventList.setCellRenderer(new CalendarProgram.ListRenderer());
+		eventJList.setListData(eventName.toArray());
+		eventJList.setCellRenderer(new CalendarProgram.ListRenderer());
 	}
 	class ListRenderer extends DefaultListCellRenderer
 	{
@@ -423,9 +418,9 @@ public class CalendarProgram{
 		{
 
 			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-			for (int i = 0; i< events.size(); i++) {
-				if (value.equals(events.get(i).getHoliday()))
-					setForeground(events.get(i).getColor());
+			for (int i = 0; i< eventsHandler.getEventsThisMonth(monthBound, yearBound).size(); i++) {
+				if (value.equals(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getHoliday()))
+					setForeground(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getColor());
 			}
 			return this;
 		}
@@ -438,7 +433,7 @@ public class CalendarProgram{
 		JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JTextFieldEventAdder.setBounds(10, 20, 550, 30);
 
-		addEventAdderButton = new JButton("Add");
+		addEventAdderButton = new JButton("addEventListButton");
 		addEventAdderButton.setVisible(true);
 		addEventAdderButton.addActionListener(new ActionListener() {
 			@Override
@@ -446,18 +441,17 @@ public class CalendarProgram{
 
 
 				frameEventAdder.setVisible(false);
-				createdEvents.add (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, false));
-				events.add (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, false));
+				eventsHandler.addEvent(new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, false));
 				//System.out.println(month+"/"+day+"/"+year);
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
-				DayChecker dayChecker = new DayChecker(events);
-				dayChecker.checkEvents();
+
+				eventsHandler.notifPopup();
 			}
 		});
 		addEventAdderButton.setBounds(50, 400, 80, 30);
 
-		addYearlyEventAdderButton = new JButton("Add Yearly");
+		addYearlyEventAdderButton = new JButton("addEventListButton Yearly");
 		addYearlyEventAdderButton.setVisible(true);
 		addYearlyEventAdderButton.addActionListener(new ActionListener() {
 			@Override
@@ -465,11 +459,10 @@ public class CalendarProgram{
 				System.out.println(JTextFieldEventAdder.getText());
 				frameEventAdder.setVisible(false);
 
-				createdEvents.add (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, true));
+				eventsHandler.addEvent (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, true));
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
-				DayChecker dayChecker = new DayChecker(events);
-				dayChecker.checkEvents();
+				eventsHandler.notifPopup();
 			}
 		});
 		addYearlyEventAdderButton.setBounds(150, 400, 100, 30);
