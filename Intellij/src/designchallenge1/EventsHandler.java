@@ -53,15 +53,6 @@ public class EventsHandler
         this.totalEvents.add(event);
     }
 
-    public void editEventInfo (CalendarEvent oldEvent, CalendarEvent newEvent)
-    {
-        int createdIndex =this.createdEvents.indexOf(oldEvent);
-        int totalIndex = this.totalEvents.indexOf(oldEvent);
-
-        this.createdEvents.set(createdIndex, newEvent);
-        this.createdEvents.set(totalIndex, newEvent);
-
-    }
 
     public void deleteEvent (CalendarEvent event)
     {
