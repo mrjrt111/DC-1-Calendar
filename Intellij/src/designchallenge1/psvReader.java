@@ -5,7 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class psvReader  extends ParserAbstract
+public class psvReader  extends FileReaderAbstract
 {
     private String filename; //filename to be used
     private FileReader fReader; //used to read the file

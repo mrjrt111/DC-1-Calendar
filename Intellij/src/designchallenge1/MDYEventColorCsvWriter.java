@@ -6,7 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MDYEventColorCsvWriter extends DataSavingAbstract {
+public class MDYEventColorCsvWriter {
 
 
     BufferedWriter bufferedWriter;
@@ -21,7 +21,7 @@ public class MDYEventColorCsvWriter extends DataSavingAbstract {
     }
 
 
-    @Override
+
     public void saveData() throws IOException
     {
 

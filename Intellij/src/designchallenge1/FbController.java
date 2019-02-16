@@ -7,11 +7,12 @@ import java.util.ArrayList;
 
 public class FbController implements ObserverInterface
 {
-    FBView view;
+
 
     @Override
     public void update(ArrayList<CalendarEvent> event)
     {
+        FBView view;
         view = new FBView();
         view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         view.setTitle("Facebook Feed");

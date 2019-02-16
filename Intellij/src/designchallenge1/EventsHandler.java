@@ -15,8 +15,8 @@ public class EventsHandler
     public EventsHandler()
     {
         try {
-            ParserAbstract csvReader = new CsvReader("Sample Files/UserEvent.csv");
-            ParserAbstract psvReader = new psvReader("Sample Files/Holiday.psv");
+            FileReaderAbstract csvReader = new CsvReader("Sample Files/UserEvent.csv");
+            FileReaderAbstract psvReader = new psvReader("Sample Files/Holiday.psv");
 
 
             InterpreterAdapter adapter = new InterpreterAdapter(((psvReader)psvReader).getContent());

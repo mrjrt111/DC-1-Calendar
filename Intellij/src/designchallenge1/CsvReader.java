@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 //CsvReader is used to parse csv files
-public class CsvReader extends ParserAbstract
+public class CsvReader extends FileReaderAbstract
 {
 
     private String filename; //filename to be used

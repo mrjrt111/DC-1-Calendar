@@ -237,6 +237,7 @@ public class CalendarProgram{
 			public void windowClosing (WindowEvent e)
 			{
 				try {
+
 					new MDYEventColorCsvWriter("Sample Files/UserEvent.csv", eventsHandler.getCreatedEvents());
 				} catch (IOException e1) {
 					e1.printStackTrace();

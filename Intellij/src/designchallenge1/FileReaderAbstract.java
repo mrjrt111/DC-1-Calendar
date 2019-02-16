@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 //Abstract Class used to handle parser classes that will be used to read dates
-public abstract class ParserAbstract {
+public abstract class FileReaderAbstract {
 
     ArrayList<String> content; //used to hold content read from file
 

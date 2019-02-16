@@ -27,7 +27,7 @@ public class DayChecker
             if (e.getMonth()+1==month&&e.getDay()==day&&e.getYear()==year)
                 currentEvents.add(e);
 
-        MediaNotifier mediaNotifier = new MediaNotifier(currentEvents);
+        SubjectInterface mediaNotifier = new MediaNotifier(currentEvents);
 
         mediaNotifier.register (new FbController());
         mediaNotifier.register (new SmsController());
