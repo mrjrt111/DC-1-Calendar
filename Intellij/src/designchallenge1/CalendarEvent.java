@@ -11,7 +11,7 @@ public class CalendarEvent
     private int month;
     private int day;
     private int year;
-    private String holiday;
+    private String schedEvent;
     private Color color;
 
     public boolean getisYearly() {
@@ -29,7 +29,7 @@ public class CalendarEvent
         this.month = month;
         this.day = day;
         this.year = year;
-        this.holiday = holiday;
+        this.schedEvent = holiday;
         this.color = color;
         this.isYearly = isYearly;
     }
@@ -58,12 +58,12 @@ public class CalendarEvent
         this.year = year;
     }
 
-    public String getHoliday() {
-        return holiday;
+    public String getSchedEvent() {
+        return schedEvent;
     }
 
-    public void setHoliday(String holiday) {
-        this.holiday = holiday;
+    public void setSchedEvent(String schedEvent) {
+        this.schedEvent = schedEvent;
     }
 
     public Color getColor() {

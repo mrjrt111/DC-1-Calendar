@@ -1,20 +1,12 @@
 package designchallenge1;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 
 public class EventsHandler
 {
-    ArrayList<CalendarEvent> loadedEvents;
-
-    public ArrayList<CalendarEvent> getCreatedEvents() {
-        return createdEvents;
-    }
-
-    ArrayList<CalendarEvent> createdEvents;
-    ArrayList<CalendarEvent> totalEvents;
-
-    DayChecker dayChecker;
+   private ArrayList<CalendarEvent> loadedEvents;
+   private ArrayList<CalendarEvent> createdEvents;
+   private ArrayList<CalendarEvent> totalEvents;
 
     /***
      * EventHandler handles majority of the of the features that involve Calendar Event
@@ -58,7 +50,7 @@ public class EventsHandler
     {
         createdEvents.remove(event);
         totalEvents.remove(event);
-        System.out.println("In Event Handler, deleted: "+ event.getHoliday());
+        System.out.println("In Event Handler, deleted: "+ event.getSchedEvent());
     }
 
     public ArrayList <CalendarEvent> getEventsThisMonth (int month, int year)
@@ -95,8 +87,12 @@ public class EventsHandler
     }
 
 
-    public void notifPopup ()
+    public void notificationCaller()
     {
+        DayChecker dayChecker;
         dayChecker = new DayChecker (totalEvents);
+    }
+    public ArrayList<CalendarEvent> getCreatedEvents() {
+        return createdEvents;
     }
 }

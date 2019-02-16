@@ -18,6 +18,7 @@ public class DayChecker
     public void checkEvents ()
     {
         ArrayList<CalendarEvent> currentEvents = new ArrayList<>();
+
         int month = LocalDate.now().getMonthValue();
         int year = LocalDate.now().getYear();
         int day = LocalDate.now().getDayOfMonth();
@@ -25,14 +26,15 @@ public class DayChecker
         for (CalendarEvent e: events)
             if (e.getMonth()+1==month&&e.getDay()==day&&e.getYear()==year)
                 currentEvents.add(e);
-            ArrayList <ObserverInterface> observers = new ArrayList<>();
-            observers.add (new FbController());
-            observers.add(new SmsController());
-            if (currentEvents.size()>0)
-            {
-                MediaNotifier mediaNotifier = new MediaNotifier(currentEvents, observers);
-                mediaNotifier.notifyObserver();
-            }
+
+        MediaNotifier mediaNotifier = new MediaNotifier(currentEvents);
+
+        mediaNotifier.register (new FbController());
+        mediaNotifier.register (new SmsController());
+        if (currentEvents.size()>0)
+        {
+            mediaNotifier.notifyObserver();
+        }
 
 
 

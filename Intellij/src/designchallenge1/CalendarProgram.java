@@ -245,7 +245,7 @@ public class CalendarProgram{
 			}
 		});
 
-		eventsHandler.notifPopup();
+		eventsHandler.notificationCaller();
 	}
 
 
@@ -349,7 +349,7 @@ public class CalendarProgram{
 			public void actionPerformed(ActionEvent e) {
 				for (CalendarEvent event: eventsHandler.getEventsThisMonth(month, year))
 				{
-					if (event.getHoliday().equals(eventJList.getSelectedValue()))
+					if (event.getSchedEvent().equals(eventJList.getSelectedValue()))
 					{
 						eventsHandler.deleteEvent(event);
 						System.out.println("pass");
@@ -406,7 +406,7 @@ public class CalendarProgram{
 		ArrayList<String> eventName = new ArrayList<>();
 		//ArrayList<Color> colorEventAdder = new ArrayList<>();
 		for (CalendarEvent e: events) {
-			eventName.add(e.getHoliday());
+			eventName.add(e.getSchedEvent());
 		}
 
 		eventJList.setListData(eventName.toArray());
@@ -419,7 +419,7 @@ public class CalendarProgram{
 
 			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 			for (int i = 0; i< eventsHandler.getEventsThisMonth(monthBound, yearBound).size(); i++) {
-				if (value.equals(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getHoliday()))
+				if (value.equals(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getSchedEvent()))
 					setForeground(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getColor());
 			}
 			return this;
@@ -446,7 +446,7 @@ public class CalendarProgram{
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
 
-				eventsHandler.notifPopup();
+				eventsHandler.notificationCaller();
 			}
 		});
 		addEventAdderButton.setBounds(50, 400, 80, 30);
@@ -462,7 +462,7 @@ public class CalendarProgram{
 				eventsHandler.addEvent (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, true));
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
-				eventsHandler.notifPopup();
+				eventsHandler.notificationCaller();
 			}
 		});
 		addYearlyEventAdderButton.setBounds(150, 400, 100, 30);

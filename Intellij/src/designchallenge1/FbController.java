@@ -16,6 +16,6 @@ public class FbController implements ObserverInterface
         view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         view.setTitle("Facebook Feed");
         for (CalendarEvent e:event)
-        view.showNewEvent(e.getHoliday(), e.getMonth() + 1, e.getDay(), e.getYear(), e.getColor());
+        view.showNewEvent(e.getSchedEvent(), e.getMonth() + 1, e.getDay(), e.getYear(), e.getColor());
     }
 }
