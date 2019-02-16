@@ -216,17 +216,17 @@ public class CalendarProgram{
 
 
 
-				showEventList(Integer.valueOf(day), monthBound, yearBound);
+				showEventList(Integer.valueOf(day), monthToday, yearToday);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
-				for (int i = 0; i< eventsHandler.getEventsThisMonth(monthBound, yearBound).size(); i++)
-					if (Integer.valueOf(day) == eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getDay()) {
-						same.add(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i));
+				for (int i = 0; i< eventsHandler.getEventsThisMonth(monthToday, yearToday).size(); i++)
+					if (Integer.valueOf(day) == eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getDay()) {
+						same.add(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i));
 					}
 
+                System.out.println("same size: "+same.size());
 
-
-				eventPanel.setBorder(BorderFactory.createTitledBorder(Integer.toString(monthBound+1)+"/"+Integer.valueOf(day)+"/"+yearToday));
+				eventPanel.setBorder(BorderFactory.createTitledBorder(Integer.toString(monthToday+1)+"/"+Integer.valueOf(day)+"/"+yearToday));
 				setEvents(same);
 
 			}
@@ -323,8 +323,16 @@ public class CalendarProgram{
 
 	private void showEventList (int day, int month, int year)
 	{
+	    System.out.println("Month/Year "+month+"/"+year);
+	    String tempEvents [] = new String [eventsHandler.getEventsThisMonth(month,year).size()];
 
-		eventJList = new JList (eventsHandler.getEventsThisMonth(month, year).toArray());
+	    for (int i = 0; i<tempEvents.length;i++)
+            tempEvents[i] = eventsHandler.getEventsThisMonth(month, year).get(i).getSchedEvent();
+
+	    for (String temp: tempEvents)
+	        System.out.println(temp);
+
+        eventJList = new JList (tempEvents);
 		eventJList.setVisible(true);
 		eventJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		//eventJList.setBounds(15, 25, 260, 400);
@@ -338,7 +346,7 @@ public class CalendarProgram{
 		addEventListButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showEventAdder(day, month, year);
+				showEventAdder(day);
 			}
 		});
 		addEventListButton.setBounds(10, 450, 80, 20);
@@ -427,7 +435,7 @@ public class CalendarProgram{
 		}
 	}
 
-	private void showEventAdder (int day, int month, int year)
+	private void showEventAdder (int day)
 	{
 		JTextFieldEventAdder = new JTextField("Enter Event", JLabel.BOTTOM);
 		JTextFieldEventAdder.setOpaque(true);
@@ -442,10 +450,10 @@ public class CalendarProgram{
 
 
 				frameEventAdder.setVisible(false);
-				eventsHandler.addEvent(new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, false));
+				eventsHandler.addEvent(new CalendarEvent(monthToday, day, yearToday, JTextFieldEventAdder.getText(), colorEventAdder, false));
 				//System.out.println(month+"/"+day+"/"+year);
 				eventListFrame.setVisible(false);
-				refreshCalendar(month, year);
+				refreshCalendar(monthToday,yearToday);
 
 				eventsHandler.notificationCaller();
 			}
@@ -460,9 +468,9 @@ public class CalendarProgram{
 				System.out.println(JTextFieldEventAdder.getText());
 				frameEventAdder.setVisible(false);
 
-				eventsHandler.addEvent (new CalendarEvent(month, day, year, JTextFieldEventAdder.getText(), colorEventAdder, true));
+				eventsHandler.addEvent (new CalendarEvent(monthToday, day, yearToday, JTextFieldEventAdder.getText(), colorEventAdder, true));
 				eventListFrame.setVisible(false);
-				refreshCalendar(month, year);
+				refreshCalendar(monthToday, yearToday);
 				eventsHandler.notificationCaller();
 			}
 		});
