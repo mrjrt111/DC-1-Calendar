@@ -15,8 +15,8 @@ public class EventsHandler
     public EventsHandler()
     {
         try {
-            FileReaderAbstract csvReader = new CsvReader("Sample Files/UserEvent.csv");
-            FileReaderAbstract psvReader = new psvReader("Sample Files/Holiday.psv");
+            FileReaderAbstract csvReader = new CsvReader("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\UserEvent.csv");
+            FileReaderAbstract psvReader = new psvReader("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\Holiday.psv");
 
 
             InterpreterAdapter adapter = new InterpreterAdapter(((psvReader)psvReader).getContent());

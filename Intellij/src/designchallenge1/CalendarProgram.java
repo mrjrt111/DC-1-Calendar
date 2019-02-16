@@ -238,7 +238,7 @@ public class CalendarProgram{
 			{
 				try {
 
-					new MDYEventColorCsvWriter("Sample Files/UserEvent.csv", eventsHandler.getCreatedEvents());
+					new MDYEventColorCsvWriter("C:\\Users\\user\\Desktop\\DC-1-Calendar\\Intellij\\Sample Files\\UserEvent.csv", eventsHandler.getCreatedEvents());
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -442,7 +442,7 @@ public class CalendarProgram{
 		JTextFieldEventAdder.setFont(new Font("SansSerif", Font.PLAIN, 12));
 		JTextFieldEventAdder.setBounds(10, 20, 550, 30);
 
-		addEventAdderButton = new JButton("addEventListButton");
+		addEventAdderButton = new JButton("Add");
 		addEventAdderButton.setVisible(true);
 		addEventAdderButton.addActionListener(new ActionListener() {
 			@Override
@@ -460,7 +460,7 @@ public class CalendarProgram{
 		});
 		addEventAdderButton.setBounds(50, 400, 80, 30);
 
-		addYearlyEventAdderButton = new JButton("addEventListButton Yearly");
+		addYearlyEventAdderButton = new JButton("Add Yearly");
 		addYearlyEventAdderButton.setVisible(true);
 		addYearlyEventAdderButton.addActionListener(new ActionListener() {
 			@Override
@@ -486,7 +486,7 @@ public class CalendarProgram{
 
 			}
 		});
-		cancelEventAdderButton.setBounds(300, 400, 80, 30);
+		cancelEventAdderButton.setBounds(270, 400, 80, 30);
 
 		colorChooserEventAdder = new JColorChooser(Color.BLACK);
 		colorChooserEventAdder.setBounds(10, 65, 550, 300);
