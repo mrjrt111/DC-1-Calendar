@@ -214,8 +214,6 @@ public class CalendarProgram{
 				String[] days = str.split(" ");
 				String day = days[0];
 
-
-
 				showEventList(Integer.valueOf(day), monthToday, yearToday);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
@@ -363,8 +361,8 @@ public class CalendarProgram{
 						eventsHandler.deleteEvent(event);
 						System.out.println("pass");
 					}
-
 				}
+
 				System.out.println("Delete "+ eventJList.getSelectedValue());
 				eventListFrame.setVisible(false);
 				refreshCalendar(month, year);
@@ -421,16 +419,19 @@ public class CalendarProgram{
 		eventJList.setListData(eventName.toArray());
 		eventJList.setCellRenderer(new CalendarProgram.ListRenderer());
 	}
+
 	class ListRenderer extends DefaultListCellRenderer
 	{
 		public Component getListCellRendererComponent (JList list, Object value, int index, boolean isSelected, boolean cellHasFocus)
 		{
-
 			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-			for (int i = 0; i< eventsHandler.getEventsThisMonth(monthBound, yearBound).size(); i++) {
-				if (value.equals(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getSchedEvent()))
-					setForeground(eventsHandler.getEventsThisMonth(monthBound, yearBound).get(i).getColor());
+
+			for (int i = 0; i< eventsHandler.getEventsThisMonth(monthToday, yearToday).size(); i++) {
+				if (value.equals(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getSchedEvent())) {
+					setForeground(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getColor());
+				}
 			}
+
 			return this;
 		}
 	}
@@ -447,8 +448,6 @@ public class CalendarProgram{
 		addEventAdderButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
-
 				frameEventAdder.setVisible(false);
 				eventsHandler.addEvent(new CalendarEvent(monthToday, day, yearToday, JTextFieldEventAdder.getText(), colorEventAdder, false));
 				//System.out.println(month+"/"+day+"/"+year);
