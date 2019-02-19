@@ -42,6 +42,8 @@ public class CalendarProgram{
 	boolean hasConstructed;
 
 	/** Event List **/
+	public int dayList = 0;
+
 	public JScrollPane scrollPane;
 	public JButton addEventListButton, doneEventListButton, deleteEventListButton ;
 	public JList eventJList;
@@ -225,6 +227,7 @@ public class CalendarProgram{
                 System.out.println("same size: "+same.size());
 
 				eventPanel.setBorder(BorderFactory.createTitledBorder(Integer.toString(monthToday+1)+"/"+Integer.valueOf(day)+"/"+yearToday));
+				dayList = Integer.valueOf(day);
 				setEvents(same);
 
 			}
@@ -356,7 +359,7 @@ public class CalendarProgram{
 			public void actionPerformed(ActionEvent e) {
 				for (CalendarEvent event: eventsHandler.getEventsThisMonth(month, year))
 				{
-					if (event.getSchedEvent().equals(eventJList.getSelectedValue()))
+					if (event.getSchedEvent().equals(eventJList.getSelectedValue()) && dayList == event.getDay())
 					{
 						eventsHandler.deleteEvent(event);
 						System.out.println("pass");
@@ -427,7 +430,8 @@ public class CalendarProgram{
 			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 			for (int i = 0; i< eventsHandler.getEventsThisMonth(monthToday, yearToday).size(); i++) {
-				if (value.equals(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getSchedEvent())) {
+				if (value.equals(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getSchedEvent()) &&
+					dayList == eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getDay()) {
 					setForeground(eventsHandler.getEventsThisMonth(monthToday, yearToday).get(i).getColor());
 				}
 			}
@@ -527,5 +531,3 @@ public class CalendarProgram{
 	}
 
 }
-
-
