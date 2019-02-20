@@ -215,8 +215,11 @@ public class CalendarProgram{
 				String str = String.valueOf(modelCalendarTable.getValueAt(row, col));
 				String[] days = str.split(" ");
 				String day = days[0];
+				try
+				{
+					showEventList(Integer.valueOf(day), monthToday, yearToday);
+				}catch (Exception e){};
 
-				showEventList(Integer.valueOf(day), monthToday, yearToday);
 				ArrayList<CalendarEvent> same = new ArrayList<>();
 
 				for (int i = 0; i< eventsHandler.getEventsThisMonth(monthToday, yearToday).size(); i++)
@@ -458,7 +461,7 @@ public class CalendarProgram{
 				eventListFrame.setVisible(false);
 				refreshCalendar(monthToday,yearToday);
 
-				eventsHandler.notificationCaller();
+				//eventsHandler.notificationCaller();
 			}
 		});
 		addEventAdderButton.setBounds(50, 400, 80, 30);
